@@ -60,6 +60,8 @@ namespace miniEngine
 			return vec4(elements[index + 0 * 4], elements[index + 1 * 4], elements[index + 2 * 4], elements[index + 3 * 4]);
 		}
 
+		//长方体视景体，由该视景体观察xy平面
+		//参考http://blog.sina.com.cn/s/blog_6471e1bb0102vtv1.html
 		mat4 mat4::orthographic(float left, float right, float bottom, float top, float near, float far)
 		{
 
@@ -109,10 +111,13 @@ namespace miniEngine
 		{
 			mat4 result(1.0f);
 
-			result.elements[3 + 0 * 4] = translation.x;
+			/*result.elements[3 + 0 * 4] = translation.x;
 			result.elements[3 + 1 * 4] = translation.y;
 			result.elements[3 + 2 * 4] = translation.z;
-
+*/
+			result.elements[0 + 3 * 4] = translation.x;
+			result.elements[1 + 3 * 4] = translation.y;
+			result.elements[2 + 3 * 4] = translation.z;
 			return result;
 
 		}
@@ -130,7 +135,7 @@ namespace miniEngine
 			float y = Rotation.y;
 			float z = Rotation.z;
 
-			result.elements[0 + 0 * 4] = x * x * omc + c;
+			/*result.elements[0 + 0 * 4] = x * x * omc + c;
 			result.elements[0 + 1 * 4] = x * y * omc + z * s;
 			result.elements[0 + 2 * 4] = x * z * omc - y * s;
 
@@ -140,7 +145,19 @@ namespace miniEngine
 
 			result.elements[2 + 0 * 4] = x * z * omc + y * s;
 			result.elements[2 + 1 * 4] = y * z * omc - x * s;
-			result.elements[2 + 2 * 4] = z * z * omc + c;
+			result.elements[2 + 2 * 4] = z * z * omc + c;*/
+
+			result.elements[0 + 0 * 4] = x * omc + c;
+			result.elements[1 + 0 * 4] = y * x * omc + z * s;
+			result.elements[2 + 0 * 4] = x * z * omc - y * s;
+
+			result.elements[0 + 1 * 4] = x * y * omc - z * s;
+			result.elements[1 + 1 * 4] = y * omc + c;
+			result.elements[2 + 1 * 4] = y * z * omc + x * s;
+
+			result.elements[0 + 2 * 4] = x * z * omc + y * s;
+			result.elements[1 + 2 * 4] = y * z * omc - x * s;
+			result.elements[2 + 2 * 4] = z * omc + c;
 
 			return result;
 		}
