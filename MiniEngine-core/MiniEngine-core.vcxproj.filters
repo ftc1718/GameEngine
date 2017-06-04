@@ -69,5 +69,7 @@
   <ItemGroup>
     <None Include="src\shaders\vertexShader.shader" />
     <None Include="src\shaders\fragmentShader.shader" />
+    <None Include="src\shaders\vertexShader.tutorial" />
+    <None Include="src\shaders\fragmentShader.tutorial" />
   </ItemGroup>
 </Project>

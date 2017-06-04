@@ -148,6 +148,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\fragmentShader.shader" />
+    <None Include="src\shaders\fragmentShader.tutorial" />
+    <None Include="src\shaders\vertexShader.tutorial" />
     <None Include="src\shaders\vertexShader.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

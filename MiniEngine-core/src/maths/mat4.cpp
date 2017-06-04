@@ -76,6 +76,8 @@ namespace miniEngine
 			result.elements[0 + 3 * 4] = (left + right) / (left - right);
 			result.elements[1 + 3 * 4] = (bottom + top) / (bottom - top);
 			result.elements[2 + 3 * 4] = (far + near) / (far - near);
+
+			//row save
 			/*mat4 result(1.0f);
 
 			result.elements[0 + 0 * 4] = 2.0f / (right - left);
@@ -89,11 +91,28 @@ namespace miniEngine
 			return result;
 		}
 
+		//aspectRatio表示屏幕宽高比
 		mat4 mat4::perspective(float fov, float aspectRatio, float near, float far)
 		{
 			mat4 result(1.0f);
 
 			float q = 1.0f / tan(toRadians(0.5f * fov));
+			float a = q / aspectRatio;
+
+			float b = (near + far) / (near - far);
+			float c = (2.0f * near * far) / (near - far);
+
+			result.elements[0 + 0 * 4] = a;
+			result.elements[1 + 1 * 4] = q;
+			result.elements[2 + 2 * 4] = b;
+			result.elements[3 + 2 * 4] = -1.0f;
+			result.elements[2 + 3 * 4] = c;
+
+//			result.elements[3 + 3 * 4] = 0.0f;
+
+
+			//row save
+			/*float q = 1.0f / tan(toRadians(0.5f * fov));
 			float a = q / aspectRatio;
 
 			result.elements[0 + 0 * 4] = a;
@@ -103,7 +122,8 @@ namespace miniEngine
 
 			result.elements[3 + 2 * 4] = 2.0f * far * near / (near - far);
 			result.elements[2 + 3 * 4] = -1.0f;
-
+*/
+		
 			return result;
 		}
 
@@ -111,10 +131,17 @@ namespace miniEngine
 		{
 			mat4 result(1.0f);
 
+			//translation matrix
+			//平移点以列向量表示 a = 
+			//平移距离为矩阵最后一列
+			//如此链接中的平移矩阵http://www.opengl-tutorial.org/cn/beginners-tutorials/tutorial-3-matrices/
 			/*result.elements[3 + 0 * 4] = translation.x;
 			result.elements[3 + 1 * 4] = translation.y;
 			result.elements[3 + 2 * 4] = translation.z;
 */
+
+			//平移点以行向量表示 a = (10, 10, 10 ,1)
+			//平移距离为矩阵最后一行
 			result.elements[0 + 3 * 4] = translation.x;
 			result.elements[1 + 3 * 4] = translation.y;
 			result.elements[2 + 3 * 4] = translation.z;
