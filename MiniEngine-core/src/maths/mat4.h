@@ -3,7 +3,7 @@
 #include "vec3.h"
 #include "vec4.h"
 
-namespace miniEngine
+namespace MiniEngine
 {
 	namespace maths
 	{

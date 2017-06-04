@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace miniEngine
+namespace MiniEngine
 {
 	namespace utils
 	{

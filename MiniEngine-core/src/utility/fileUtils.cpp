@@ -1,6 +1,6 @@
 #include "fileUtils.h"
 
-namespace miniEngine
+namespace MiniEngine
 {
 	namespace utils
 	{

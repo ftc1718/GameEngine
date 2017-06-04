@@ -128,6 +128,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\graphics\buffers\buffer.cpp" />
+    <ClCompile Include="src\graphics\buffers\indexBuffer.cpp" />
+    <ClCompile Include="src\graphics\buffers\vertexArray.cpp" />
     <ClCompile Include="src\graphics\shaders.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
     <ClCompile Include="src\maths\mat4.cpp" />
@@ -137,6 +140,9 @@
     <ClCompile Include="src\utility\fileUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\buffers\buffer.h" />
+    <ClInclude Include="src\graphics\buffers\indexBuffer.h" />
+    <ClInclude Include="src\graphics\buffers\vertexArray.h" />
     <ClInclude Include="src\graphics\shaders.h" />
     <ClInclude Include="src\graphics\window.h" />
     <ClInclude Include="src\maths\mat4.h" />

@@ -1,6 +1,6 @@
 #include "vec2.h"
 
-namespace miniEngine
+namespace MiniEngine
 {
 	namespace maths
 	{

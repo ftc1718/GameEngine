@@ -5,11 +5,14 @@ layout(location = 0) out vec4 color;
 uniform vec4 colour;
 uniform vec2 lightPosition;
 
-in vec4 pos;
+in DATA
+{
+	vec4 position;
+	vec4 color;
+} fs_in;
 
 void main()
 {
-//	color = vec4(1.0f, 0.0f, 0.0f, 1.0f); //for text
-	float intensity = 1.0f / length(pos.xy - lightPosition);
-	color = colour * intensity;
+	float intensity = 1.0f / length(fs_in.position.xy - lightPosition);
+	color = fs_in.color * intensity;
 }

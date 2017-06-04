@@ -7,7 +7,7 @@
 #include "../maths/vec4.h"
 #include "../maths/mat4.h"
 
-namespace miniEngine
+namespace MiniEngine
 {
 	namespace graphics
 	{

@@ -1,20 +1,26 @@
 #if 1
 
-#include "src/graphics/window.h"
 #include <iostream>
+#include "src/graphics/window.h"
 #include "src/maths/maths.h"
 #include "src/graphics/shaders.h"
 
-/*Engine Text*/
+#include "src/graphics/buffers/buffer.h"
+#include "src/graphics/buffers/indexBuffer.h"
+#include "src/graphics/buffers/vertexArray.h"
+
+/*Engine Test*/
 int main()
 {
-	using namespace miniEngine;
+	using namespace MiniEngine;
 	using namespace graphics;
 	using namespace maths;
 
 	Window window("Engine", 960, 540);
-	glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
+//	glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
 
+
+#if 0
 	GLfloat vertices[] =
 	{
 		/*-0.5, -0.5, 0,
@@ -26,6 +32,7 @@ int main()
 		0, 3, 0,
 		8, 3, 0,
 		8, 0, 0
+		
 	};
 
 	GLuint vertexBuffer;
@@ -33,21 +40,69 @@ int main()
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+	
+
+
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
+#else
+
+	GLfloat vertices[] =
+	{
+		0, 0, 0,
+		0, 3, 0,
+		8, 3, 0,
+		8, 0, 0
+	};
+
+	GLushort indices[] = 
+	{
+		0, 1, 2,
+		2, 3, 0
+	};
+
+	GLfloat colorsA[] =
+	{
+		1, 0, 1, 1,
+		1, 0, 1, 1,
+		1, 0, 1, 1,
+		1, 0, 1, 1
+	};
+
+	GLfloat colorsB[] =
+	{
+		0.2f, 0.3f, 0.8f, 1,
+		0.2f, 0.3f, 0.8f, 1,
+		0.2f, 0.3f, 0.8f, 1,
+		0.2f, 0.3f, 0.8f, 1
+	};
+
+	VertexArray sprite1, sprite2;
+	IndexBuffer ibo(indices, 6);
+
+	sprite1.addBuffer(new Buffer(vertices, 4 * 3, 3), 0);
+	sprite1.addBuffer(new Buffer(colorsA, 4 * 4, 4), 1);
+
+	sprite2.addBuffer(new Buffer(vertices, 4 * 3, 3), 0);
+	sprite2.addBuffer(new Buffer(colorsB, 4 * 4, 4), 1);
+#endif
 
 	mat4 ortho = mat4::orthographic(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
+	//mat4 translation = mat4::translate(vec3(4, 3, 0));
+	//mat4 rotation = mat4::rotate(45, vec3(0, 0, 1));
 
+//	mat4 modelMatrix = translation * rotation;
 	Shader shader("src/shaders/vertexShader.shader", "src/shaders/fragmentShader.shader");
 	shader.enable();
 
 	shader.setUniformMat4("projectionMatrix", ortho);
+//	shader.setUniformMat4("modelMatrix", modelMatrix);
 	shader.setUniformMat4("modelMatrix", mat4::translate(vec3(4, 3, 0)));
 
-	shader.setUniform4f("colour", vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	shader.setUniform2f("lightPosition", vec2(4, 1.5));
+	shader.setUniform4f("colour", vec4(0.2f, 0.3f, 0.8f, 1.0f));
 	//使光源位于中心 （4,1.5）是相对坐标 （8，4.5）是绝对坐标
 	//坐标系在vectexShader中调整
-//	shader.setUniform2f("lightPosition", vec2(4, 1.5));
 
 	while (!window.closed())
 	{
@@ -55,7 +110,20 @@ int main()
 		double x, y;
 		window.getMousePosition(x, y);
 		shader.setUniform2f("lightPosition", vec2((float)(x * 16.0f / 960.0f), (float)(9.0f - y * 9.0f / 540.0f)));
-		glDrawArrays(GL_TRIANGLES, 0, 6);
+//		glDrawArrays(GL_TRIANGLES, 0, 6);
+		sprite1.bind();
+		ibo.bind();
+		shader.setUniformMat4("modelMatrix", mat4::translate(vec3(4, 3, 0)));
+		glDrawElements(GL_TRIANGLES, ibo.getIndexCnt(), GL_UNSIGNED_SHORT, 0);
+		ibo.bind();
+		sprite1.unbind();
+
+		sprite2.bind();
+		ibo.bind();
+		shader.setUniformMat4("modelMatrix", mat4::translate(vec3(0,0,0)));
+		glDrawElements(GL_TRIANGLES, ibo.getIndexCnt(), GL_UNSIGNED_SHORT, 0);
+		ibo.bind();
+		sprite2.unbind();
 
 		window.update();
 	}
@@ -76,7 +144,7 @@ int main()
 
 int main()
 {
-	using namespace miniEngine;
+	using namespace MiniEngine;
 	using namespace maths;
 	using namespace graphics;
 
@@ -97,6 +165,10 @@ int main()
 
 	GLfloat bufferData[] = 
 	{
+		-1, -1, 0,
+		0, -1, 1,
+		1, -1, 0,
+		0, 1, 0
 		/*-1.0f, -1.0f, 0.0f,
 		1.0f, -1.0f, 0.0f,
 		0.0f,  1.0f, 0.0f,*/
@@ -142,42 +214,42 @@ int main()
 		0.5f, 0.5f, 0.5f,
 		-0.5f, 0.5f, 0.5f,
 		0.5f,-0.5f, 0.5f*/
-		-0.5f, -0.5f, -0.5f,
-		0.5f, -0.5f, -0.5f,
-		-0.5f, 0.5f, -0.5f, //背面第一个三角形
-		0.5f, 0.5f, -0.5f,
-		-0.5f, 0.5f, -0.5f,
-		0.5f, -0.5f, -0.5f,//
-		-0.5f, -0.5f, 0.5f,
-		0.5f, -0.5f, 0.5f,
-		-0.5f, 0.5f, 0.5f,//qianmian1
-		0.5f, 0.5f, 0.5f,
-		-0.5f, 0.5f, 0.5f,
-		0.5f, -0.5f, 0.5f,//2
-		-0.5f, 0.5f, 0.5f,
-		0.5f, 0.5f, 0.5f,
-		-0.5f, 0.5f, -0.5f,//shangmian1
-		0.5f, 0.5f, -0.5f,
-		0.5f, 0.5f, 0.5f,
-		-0.5f, 0.5f, -0.5f,//2
-		-0.5f, -0.5f, 0.5f,
-		0.5f, -0.5f, 0.5f,
-		-0.5f, -0.5f, -0.5f,//xiamian1
-		0.5f, -0.5f, -0.5f,
-		0.5f, -0.5f, 0.5f,
-		-0.5f, -0.5f, -0.5f,//2
-		-0.5f, -0.5f, 0.5f,
-		-0.5f, -0.5f, -0.5f,
-		-0.5f, 0.5f, 0.5f, //zuomian 1
-		-0.5f, 0.5f, -0.5f,
-		-0.5f, 0.5f, 0.5f,
-		-0.5f, -0.5f, -0.5f,//2
-		0.5f, -0.5f, 0.5f,
-		0.5f, -0.5f, -0.5f,
-		0.5f, 0.5f, 0.5f, //youmian 1
-		0.5f, 0.5f, -0.5f,
-		0.5f, 0.5f, 0.5f,
-		0.5f, -0.5f, -0.5f,//2
+		//-0.5f, -0.5f, -0.5f,
+		//0.5f, -0.5f, -0.5f,
+		//-0.5f, 0.5f, -0.5f, //背面第一个三角形
+		//0.5f, 0.5f, -0.5f,
+		//-0.5f, 0.5f, -0.5f,
+		//0.5f, -0.5f, -0.5f,//
+		//-0.5f, -0.5f, 0.5f,
+		//0.5f, -0.5f, 0.5f,
+		//-0.5f, 0.5f, 0.5f,//qianmian1
+		//0.5f, 0.5f, 0.5f,
+		//-0.5f, 0.5f, 0.5f,
+		//0.5f, -0.5f, 0.5f,//2
+		//-0.5f, 0.5f, 0.5f,
+		//0.5f, 0.5f, 0.5f,
+		//-0.5f, 0.5f, -0.5f,//shangmian1
+		//0.5f, 0.5f, -0.5f,
+		//0.5f, 0.5f, 0.5f,
+		//-0.5f, 0.5f, -0.5f,//2
+		//-0.5f, -0.5f, 0.5f,
+		//0.5f, -0.5f, 0.5f,
+		//-0.5f, -0.5f, -0.5f,//xiamian1
+		//0.5f, -0.5f, -0.5f,
+		//0.5f, -0.5f, 0.5f,
+		//-0.5f, -0.5f, -0.5f,//2
+		//-0.5f, -0.5f, 0.5f,
+		//-0.5f, -0.5f, -0.5f,
+		//-0.5f, 0.5f, 0.5f, //zuomian 1
+		//-0.5f, 0.5f, -0.5f,
+		//-0.5f, 0.5f, 0.5f,
+		//-0.5f, -0.5f, -0.5f,//2
+		//0.5f, -0.5f, 0.5f,
+		//0.5f, -0.5f, -0.5f,
+		//0.5f, 0.5f, 0.5f, //youmian 1
+		//0.5f, 0.5f, -0.5f,
+		//0.5f, 0.5f, 0.5f,
+		//0.5f, -0.5f, -0.5f,//2
 	};
 
 	GLuint vertexBuffer;
@@ -187,6 +259,20 @@ int main()
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
+
+	unsigned int indices[] =
+	{
+		0, 3, 1,
+		1, 3, 2,
+		2, 3, 0,
+		0, 1, 2
+	};
+
+	GLuint indexBuffer;
+	glGenBuffers(1, &indexBuffer);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
 
 	GLfloat g_color_buffer_data[] = {
 		0.583f,  0.771f,  0.014f,
@@ -235,19 +321,19 @@ int main()
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(1);
 
-
 	Shader shader("src/shaders/vertexShader.tutorial", "src/shaders/fragmentShader.tutorial");
 	shader.enable();
 
 	/*mat4 pers = mat4::perspective(45.0f, (float)1024 / (float)768, 0.1f, 100.0f);
-	mat4 ortho = mat4::orthographic(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
+	mat4 ortho = mat4::orthographic(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);*/
 
-	shader.setUniformMat4("projectionMatrix", pers);*/
+	shader.setUniformMat4("projectionMatrix", mat4::rotate(45, vec3(1, 0, 0)));
 
 	while (!glfwWindowShouldClose(window))
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
+//		glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
+		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
 
 		glfwSwapBuffers(window);	
 		glfwPollEvents();

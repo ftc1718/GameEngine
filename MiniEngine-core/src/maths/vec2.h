@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-namespace miniEngine
+namespace MiniEngine
 {
 	namespace maths
 	{

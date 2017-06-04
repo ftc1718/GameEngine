@@ -4,7 +4,7 @@
 #include "shaders.h"
 #include "../utility/fileUtils.h"
 
-namespace miniEngine
+namespace MiniEngine
 {
 	namespace graphics
 	{

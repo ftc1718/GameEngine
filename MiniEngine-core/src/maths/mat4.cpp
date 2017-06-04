@@ -2,7 +2,7 @@
 #include "maths.h"
 
 
-namespace miniEngine
+namespace MiniEngine
 {
 	namespace maths
 	{
@@ -27,7 +27,8 @@ namespace miniEngine
 
 		mat4& mat4::multiply(const mat4& other)
 		{
-			float tmpData[16];
+			//row save
+			/*float tmpData[16];
 			for (int row = 0; row < 4; ++row)
 			{
 				for (int col = 0; col < 4; ++col)
@@ -41,11 +42,25 @@ namespace miniEngine
 				}
 			}
 
-			memcpy(elements, tmpData, 4 * 4 * sizeof(float));
+			memcpy(elements, tmpData, 4 * 4 * sizeof(float));*/
+
+			for (int y = 0; y < 4; y++)
+			{
+				for (int x = 0; x < 4; x++)
+				{
+					float sum = 0.0f;
+					for (int e = 0; e < 4; e++)
+					{
+						sum += elements[x + e * 4] * other.elements[e + y * 4];
+					}
+					elements[x + y * 4] = sum;
+				}
+			}
+
 			return *this;
 		}
 
-		mat4 operator*(mat4 left, mat4& right)
+		mat4 operator*(mat4 left, const mat4& right)
 		{
 			return left.multiply(right);
 		}
