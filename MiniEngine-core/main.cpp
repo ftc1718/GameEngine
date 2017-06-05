@@ -9,6 +9,9 @@
 #include "src/graphics/buffers/indexBuffer.h"
 #include "src/graphics/buffers/vertexArray.h"
 
+#include "src/graphics/renderer2d.h"
+#include "src/graphics/simple2dRenderer.h"
+
 /*Engine Test*/
 int main()
 {
@@ -18,74 +21,6 @@ int main()
 
 	Window window("Engine", 960, 540);
 //	glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
-
-
-#if 0
-	GLfloat vertices[] =
-	{
-		/*-0.5, -0.5, 0,
-		-0.5, 0.5, 0,
-		0.5, 0.5, 0*/
-		0, 0, 0,
-		8, 0, 0,
-		0, 3, 0,
-		0, 3, 0,
-		8, 3, 0,
-		8, 0, 0
-		
-	};
-
-	GLuint vertexBuffer;
-	glGenBuffers(1, &vertexBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	
-
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(0);
-#else
-
-	GLfloat vertices[] =
-	{
-		0, 0, 0,
-		0, 3, 0,
-		8, 3, 0,
-		8, 0, 0
-	};
-
-	GLushort indices[] = 
-	{
-		0, 1, 2,
-		2, 3, 0
-	};
-
-	GLfloat colorsA[] =
-	{
-		1, 0, 1, 1,
-		1, 0, 1, 1,
-		1, 0, 1, 1,
-		1, 0, 1, 1
-	};
-
-	GLfloat colorsB[] =
-	{
-		0.2f, 0.3f, 0.8f, 1,
-		0.2f, 0.3f, 0.8f, 1,
-		0.2f, 0.3f, 0.8f, 1,
-		0.2f, 0.3f, 0.8f, 1
-	};
-
-	VertexArray sprite1, sprite2;
-	IndexBuffer ibo(indices, 6);
-
-	sprite1.addBuffer(new Buffer(vertices, 4 * 3, 3), 0);
-	sprite1.addBuffer(new Buffer(colorsA, 4 * 4, 4), 1);
-
-	sprite2.addBuffer(new Buffer(vertices, 4 * 3, 3), 0);
-	sprite2.addBuffer(new Buffer(colorsB, 4 * 4, 4), 1);
-#endif
 
 	mat4 ortho = mat4::orthographic(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
 	//mat4 translation = mat4::translate(vec3(4, 3, 0));
@@ -99,6 +34,10 @@ int main()
 //	shader.setUniformMat4("modelMatrix", modelMatrix);
 	shader.setUniformMat4("modelMatrix", mat4::translate(vec3(4, 3, 0)));
 
+	Renderable2D sprite1(maths::vec3(5, 5, 0), maths::vec2(4, 4), maths::vec4(1, 0, 1, 1), shader);
+	Renderable2D sprite2(maths::vec3(7, 1, 0), maths::vec2(2, 3), maths::vec4(0.2f, 0, 1, 1), shader);
+	Simple2DRenderer renderer;
+
 	shader.setUniform2f("lightPosition", vec2(4, 1.5));
 	shader.setUniform4f("colour", vec4(0.2f, 0.3f, 0.8f, 1.0f));
 	//使光源位于中心 （4,1.5）是相对坐标 （8，4.5）是绝对坐标
@@ -110,20 +49,10 @@ int main()
 		double x, y;
 		window.getMousePosition(x, y);
 		shader.setUniform2f("lightPosition", vec2((float)(x * 16.0f / 960.0f), (float)(9.0f - y * 9.0f / 540.0f)));
-//		glDrawArrays(GL_TRIANGLES, 0, 6);
-		sprite1.bind();
-		ibo.bind();
-		shader.setUniformMat4("modelMatrix", mat4::translate(vec3(4, 3, 0)));
-		glDrawElements(GL_TRIANGLES, ibo.getIndexCnt(), GL_UNSIGNED_SHORT, 0);
-		ibo.bind();
-		sprite1.unbind();
 
-		sprite2.bind();
-		ibo.bind();
-		shader.setUniformMat4("modelMatrix", mat4::translate(vec3(0,0,0)));
-		glDrawElements(GL_TRIANGLES, ibo.getIndexCnt(), GL_UNSIGNED_SHORT, 0);
-		ibo.bind();
-		sprite2.unbind();
+		renderer.submit(&sprite1);
+		renderer.submit(&sprite2);
+		renderer.flush();
 
 		window.update();
 	}
