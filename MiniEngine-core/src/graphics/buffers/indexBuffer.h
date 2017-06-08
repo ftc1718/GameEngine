@@ -13,6 +13,8 @@ namespace MiniEngine
 			GLuint m_indexCnt;
 		public:
 			IndexBuffer(GLushort* data, GLsizei size);
+			IndexBuffer(GLuint* data, GLsizei size);
+			~IndexBuffer();
 
 			void bind() const;
 			void unbind() const;

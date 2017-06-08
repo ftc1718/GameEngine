@@ -8,8 +8,12 @@ namespace MiniEngine
 		{
 			glGenVertexArrays(1, &m_arrayID);
 		}
+		VertexArray::~VertexArray()
+		{
+			glDeleteVertexArrays(1, &m_arrayID);
+		}
 
-		//index表示属性的suoyin
+		//index表示属性的索引
 		void VertexArray::addBuffer(Buffer* buffer, GLuint index)
 		{
 			bind();

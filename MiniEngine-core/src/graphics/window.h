@@ -15,8 +15,8 @@ namespace MiniEngine
 		private:
 			int m_width;
 			int m_height;
-			const char* m_title;
-			GLFWwindow* m_window;
+			const char* m_pTitle;
+			GLFWwindow* m_pWindow;
 
 			//these can be static
 			bool m_keys[MAX_KEYS];

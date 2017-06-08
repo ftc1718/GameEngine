@@ -13,6 +13,7 @@ namespace MiniEngine
 			GLuint m_componentCnt;
 		public:
 			Buffer(GLfloat* data, GLsizei size, GLuint componentCnt);
+			~Buffer();
 
 			void bind() const;
 			void unbind() const;

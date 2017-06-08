@@ -14,6 +14,11 @@ namespace MiniEngine
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 		}
 
+		Buffer::~Buffer()
+		{
+			glDeleteBuffers(1, &m_bufferID);
+		}
+
 		void Buffer::bind() const
 		{
 			glBindBuffer(GL_ARRAY_BUFFER, m_bufferID);

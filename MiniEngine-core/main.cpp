@@ -1,6 +1,7 @@
 #if 1
 
 #include <iostream>
+#include <vector>
 #include "src/graphics/window.h"
 #include "src/maths/maths.h"
 #include "src/graphics/shaders.h"
@@ -11,6 +12,14 @@
 
 #include "src/graphics/renderer2d.h"
 #include "src/graphics/simple2dRenderer.h"
+#include "src/graphics/batchRenderer2d.h"
+
+#include "src/graphics/staticSprite.h"
+#include "src/graphics/Sprite.h"
+
+#include <time.h>
+
+#define BATCHRENDERER 1
 
 /*Engine Test*/
 int main()
@@ -23,20 +32,44 @@ int main()
 //	glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
 
 	mat4 ortho = mat4::orthographic(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
-	//mat4 translation = mat4::translate(vec3(4, 3, 0));
-	//mat4 rotation = mat4::rotate(45, vec3(0, 0, 1));
 
-//	mat4 modelMatrix = translation * rotation;
 	Shader shader("src/shaders/vertexShader.shader", "src/shaders/fragmentShader.shader");
 	shader.enable();
 
 	shader.setUniformMat4("projectionMatrix", ortho);
-//	shader.setUniformMat4("modelMatrix", modelMatrix);
-	shader.setUniformMat4("modelMatrix", mat4::translate(vec3(4, 3, 0)));
+//	shader.setUniformMat4("modelMatrix", mat4::translate(vec3(4, 3, 0)));
 
-	Renderable2D sprite1(maths::vec3(5, 5, 0), maths::vec2(4, 4), maths::vec4(1, 0, 1, 1), shader);
-	Renderable2D sprite2(maths::vec3(7, 1, 0), maths::vec2(2, 3), maths::vec4(0.2f, 0, 1, 1), shader);
+	std::vector<Renderable2D*> sprites;
+	srand(time(NULL));
+
+	for (float y = 0.0f; y < 9.0f; y += 0.05f)
+	{
+		for (float x = 0.0f; x < 16.0f; x += 0.05f)
+		{
+			sprites.push_back(new 
+#if BATCHRENDERER
+				Sprite
+#else
+				StaticSprite
+#endif
+				(x, y, 0.04f, 0.04f, maths::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)
+#if !BATCHRENDERER
+			, shader
+#endif
+				));
+		}
+	}
+
+#if BATCHRENDERER
+	/*Sprite sprite1(5, 5, 4, 4, maths::vec4(1, 0, 1, 1));
+	Sprite sprite2(7, 1, 2, 3, maths::vec4(0.2f, 0, 1, 1));*/
+	BatchRenderer2D renderer;
+
+#else
+	/*StaticSprite sprite1(5, 5, 4, 4, maths::vec4(1, 0, 1, 1), shader);
+	StaticSprite sprite2(7, 1, 2, 3, maths::vec4(0.2f, 0, 1, 1), shader);*/
 	Simple2DRenderer renderer;
+#endif
 
 	shader.setUniform2f("lightPosition", vec2(4, 1.5));
 	shader.setUniform4f("colour", vec4(0.2f, 0.3f, 0.8f, 1.0f));
@@ -50,13 +83,23 @@ int main()
 		window.getMousePosition(x, y);
 		shader.setUniform2f("lightPosition", vec2((float)(x * 16.0f / 960.0f), (float)(9.0f - y * 9.0f / 540.0f)));
 
-		renderer.submit(&sprite1);
-		renderer.submit(&sprite2);
+#if BATCHRENDERER
+		renderer.begin();
+#endif
+		for (int i = 0; i < sprites.size(); ++i)
+		{
+			renderer.submit(sprites[i]);
+		}
+
+#if BATCHRENDERER
+		renderer.end();
+#endif
+
 		renderer.flush();
 
+		printf("Sprites: %d\n", sprites.size());
 		window.update();
 	}
-
 	return 0;
 }
 

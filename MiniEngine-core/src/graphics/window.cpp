@@ -14,7 +14,7 @@ namespace MiniEngine
 		void windowResize(GLFWwindow* window, int width, int height);
 		
 		Window::Window(const char* title, int width, int height)
-			: m_title(title), m_width(width), m_height(height)
+			: m_pTitle(title), m_width(width), m_height(height)
 		{
 			if (!init())
 			{
@@ -45,19 +45,19 @@ namespace MiniEngine
 				return false;
 			}
 
-			m_window = glfwCreateWindow(m_width, m_height, m_title, NULL, NULL);
-			if (!m_window)
+			m_pWindow = glfwCreateWindow(m_width, m_height, m_pTitle, NULL, NULL);
+			if (!m_pWindow)
 			{
 				std::cout << "Fail to create GLFW window" << std::endl;
 				return false;
 			}
-			glfwMakeContextCurrent(m_window);
-			glfwSetWindowUserPointer(m_window, this);
+			glfwMakeContextCurrent(m_pWindow);
+			glfwSetWindowUserPointer(m_pWindow, this);
 
-			glfwSetWindowSizeCallback(m_window, windowResize);
-			glfwSetKeyCallback(m_window, keyCallback);
-			glfwSetMouseButtonCallback(m_window, mouseButtonCallback);
-			glfwSetCursorPosCallback(m_window, cursorPositionCallback);
+			glfwSetWindowSizeCallback(m_pWindow, windowResize);
+			glfwSetKeyCallback(m_pWindow, keyCallback);
+			glfwSetMouseButtonCallback(m_pWindow, mouseButtonCallback);
+			glfwSetCursorPosCallback(m_pWindow, cursorPositionCallback);
 
 
 			if (glewInit() != GLEW_OK)
@@ -74,7 +74,7 @@ namespace MiniEngine
 
 		bool Window::closed() const
 		{
-			return glfwWindowShouldClose(m_window) == 1;
+			return glfwWindowShouldClose(m_pWindow) == 1;
 		}
 
 		void Window::clear() const
@@ -90,7 +90,7 @@ namespace MiniEngine
 				std::cout << "OpenGL Error: " << error << std::endl;
 			}
 			glfwPollEvents();
-			glfwSwapBuffers(m_window);
+			glfwSwapBuffers(m_pWindow);
 		}
 
 		void windowResize(GLFWwindow* window, int width, int height)

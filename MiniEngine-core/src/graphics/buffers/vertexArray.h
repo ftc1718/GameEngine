@@ -16,6 +16,7 @@ namespace MiniEngine
 			GLuint m_arrayID;
 		public:
 			VertexArray();
+			~VertexArray();
 			
 			void addBuffer(Buffer* buffer, GLuint index);
 			void bind() const;
