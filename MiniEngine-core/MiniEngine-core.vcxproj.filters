@@ -113,6 +113,9 @@
     <ClInclude Include="src\graphics\Sprite.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\utility\timer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\vertexShader.shader" />

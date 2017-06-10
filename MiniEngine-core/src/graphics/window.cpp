@@ -59,6 +59,8 @@ namespace MiniEngine
 			glfwSetMouseButtonCallback(m_pWindow, mouseButtonCallback);
 			glfwSetCursorPosCallback(m_pWindow, cursorPositionCallback);
 
+			glfwSwapInterval(0);//关闭垂直同步
+
 
 			if (glewInit() != GLEW_OK)
 			{

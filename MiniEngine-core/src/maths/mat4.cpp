@@ -44,6 +44,7 @@ namespace MiniEngine
 
 			memcpy(elements, tmpData, 4 * 4 * sizeof(float));*/
 
+			float tmpData[16];
 			for (int y = 0; y < 4; y++)
 			{
 				for (int x = 0; x < 4; x++)
@@ -53,9 +54,10 @@ namespace MiniEngine
 					{
 						sum += elements[x + e * 4] * other.elements[e + y * 4];
 					}
-					elements[x + y * 4] = sum;
+					tmpData[x + y * 4] = sum;
 				}
 			}
+			memcpy(elements, tmpData, 4 * 4 * sizeof(float));
 
 			return *this;
 		}

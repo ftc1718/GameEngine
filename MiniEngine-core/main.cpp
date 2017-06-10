@@ -16,6 +16,7 @@
 
 #include "src/graphics/staticSprite.h"
 #include "src/graphics/Sprite.h"
+#include "src/utility/timer.h"
 
 #include <time.h>
 
@@ -29,7 +30,7 @@ int main()
 	using namespace maths;
 
 	Window window("Engine", 960, 540);
-//	glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
+	//	glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
 
 	mat4 ortho = mat4::orthographic(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
 
@@ -37,7 +38,7 @@ int main()
 	shader.enable();
 
 	shader.setUniformMat4("projectionMatrix", ortho);
-//	shader.setUniformMat4("modelMatrix", mat4::translate(vec3(4, 3, 0)));
+	//	shader.setUniformMat4("modelMatrix", mat4::translate(vec3(4, 3, 0)));
 
 	std::vector<Renderable2D*> sprites;
 	srand(time(NULL));
@@ -46,7 +47,7 @@ int main()
 	{
 		for (float x = 0.0f; x < 16.0f; x += 0.05f)
 		{
-			sprites.push_back(new 
+			sprites.push_back(new
 #if BATCHRENDERER
 				Sprite
 #else
@@ -54,9 +55,9 @@ int main()
 #endif
 				(x, y, 0.04f, 0.04f, maths::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)
 #if !BATCHRENDERER
-			, shader
+					, shader
 #endif
-				));
+					));
 		}
 	}
 
@@ -76,8 +77,19 @@ int main()
 	//使光源位于中心 （4,1.5）是相对坐标 （8，4.5）是绝对坐标
 	//坐标系在vectexShader中调整
 
+
+	Timer timer;
+	double time = 0;
+	unsigned int frames = 0;
 	while (!window.closed())
 	{
+		//绕（1，1）旋转
+		mat4 mat = mat4::translate(vec3(1, 1, 1));
+		mat = mat * mat4::rotate(timer.elasped() * 50.0f, vec3(0, 0, 1));
+		mat = mat * mat4::translate(vec3(-1, -1, -1));
+		shader.setUniformMat4("modelMatrix", mat);
+
+		//timer.reset();
 		window.clear();
 		double x, y;
 		window.getMousePosition(x, y);
@@ -97,8 +109,15 @@ int main()
 
 		renderer.flush();
 
-		printf("Sprites: %d\n", sprites.size());
+
 		window.update();
+		frames++;
+		if (timer.elasped() - time > 1.0f)
+		{
+			time += 1.0f;
+			printf("%d fps\n", frames);
+			frames = 0;
+		}
 	}
 	return 0;
 }
@@ -121,21 +140,21 @@ int main()
 	using namespace graphics;
 
 	glfwInit();
-	
+
 	GLFWwindow* window;
 	window = glfwCreateWindow(1024, 768, "Tutorial", NULL, NULL);
 	glfwMakeContextCurrent(window);
 
 	if (glewInit() == GLEW_OK)
 		std::cout << "glew init ok!" << std::endl;
-//	glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
+	//	glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
 
 
-	GLfloat bufferData[] = 
+	GLfloat bufferData[] =
 	{
 		-1, -1, 0,
 		0, -1, 1,
@@ -304,10 +323,10 @@ int main()
 	while (!glfwWindowShouldClose(window))
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//		glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
+		//		glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
 		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
 
-		glfwSwapBuffers(window);	
+		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
 

@@ -27,7 +27,7 @@ namespace MiniEngine
 			glEnableVertexAttribArray(SHADER_VERTEX_INDEX);
 			glEnableVertexAttribArray(SHADER_COLOR_INDEX);
 			glVertexAttribPointer(SHADER_VERTEX_INDEX, 3, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)0);
-			glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(sizeof(GLfloat) * 3));
+			glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::color)));
 
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -64,20 +64,27 @@ namespace MiniEngine
 			const maths::vec2& size = renderable2d->getSize();
 			const maths::vec4& color = renderable2d->getColor();
 
+			int r = color.x * 255.0f;
+			int g = color.y * 255.0f;
+			int b = color.z * 255.0f;
+			int a = color.w * 255.0f;
+
+			unsigned int c = a << 24 | b << 16 | g << 8 | r;
+
 			m_pBuffer->vertex = position;
-			m_pBuffer->color = color;
+			m_pBuffer->color = c;
 			++m_pBuffer;
 
 			m_pBuffer->vertex = maths::vec3(position.x, position.y + size.y, position.z);
-			m_pBuffer->color = color;
+			m_pBuffer->color = c;
 			++m_pBuffer; 
 
 			m_pBuffer->vertex = maths::vec3(position.x + size.x, position.y + size.y, position.z);
-			m_pBuffer->color = color;
+			m_pBuffer->color = c;
 			++m_pBuffer;
 
 			m_pBuffer->vertex = maths::vec3(position.x + size.x, position.y, position.z);
-			m_pBuffer->color = color;
+			m_pBuffer->color = c;
 			++m_pBuffer;
 
 			m_indexCnt += 6;//通过六个索引绘制一个矩形
