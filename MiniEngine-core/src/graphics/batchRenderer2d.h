@@ -36,9 +36,9 @@ namespace MiniEngine
 			BatchRenderer2D();
 			~BatchRenderer2D();
 
-			void begin();
-			void end();
+			void begin() override;
 			void submit(const Renderable2D* renderable2d) override;
+			void end() override;
 			void flush() override;
 		private:
 			void init();

@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <vector>
+#include "src/utility/timer.h"
+
 #include "src/graphics/window.h"
 #include "src/maths/maths.h"
 #include "src/graphics/shaders.h"
@@ -16,11 +18,11 @@
 
 #include "src/graphics/staticSprite.h"
 #include "src/graphics/Sprite.h"
-#include "src/utility/timer.h"
+
+#include "src/graphics/layers/tileLayer.h"
 
 #include <time.h>
 
-#define BATCHRENDERER 1
 
 /*Engine Test*/
 int main()
@@ -32,83 +34,45 @@ int main()
 	Window window("Engine", 960, 540);
 	//	glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
 
-	mat4 ortho = mat4::orthographic(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
+//	mat4 ortho = mat4::orthographic(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
 
-	Shader shader("src/shaders/vertexShader.shader", "src/shaders/fragmentShader.shader");
+	Shader* s = new Shader("src/shaders/vertexShader.shader", "src/shaders/fragmentShader.shader");
+	Shader* s2 = new Shader("src/shaders/vertexShader.shader", "src/shaders/fragmentShader.shader");
+	Shader& shader = *s;
+	Shader& shader2 = *s2;
 	shader.enable();
+	shader2.enable();
+	shader.setUniform2f("lightPosition", vec2(4, 1.5));
+	shader2.setUniform2f("lightPosition", vec2(4, 1.5));
 
-	shader.setUniformMat4("projectionMatrix", ortho);
-	//	shader.setUniformMat4("modelMatrix", mat4::translate(vec3(4, 3, 0)));
-
-	std::vector<Renderable2D*> sprites;
-	srand(time(NULL));
-
-	for (float y = 0.0f; y < 9.0f; y += 0.05f)
+	TileLayer layer(&shader);
+	for (float y = -9.0f; y < 9.0f; y += 0.1)
 	{
-		for (float x = 0.0f; x < 16.0f; x += 0.05f)
+		for (float x = -16.0f; x < 16.0f; x += 0.1)
 		{
-			sprites.push_back(new
-#if BATCHRENDERER
-				Sprite
-#else
-				StaticSprite
-#endif
-				(x, y, 0.04f, 0.04f, maths::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)
-#if !BATCHRENDERER
-					, shader
-#endif
-					));
+			layer.add(new Sprite(x, y, 0.09f, 0.09f, maths::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
 		}
 	}
 
-#if BATCHRENDERER
-	/*Sprite sprite1(5, 5, 4, 4, maths::vec4(1, 0, 1, 1));
-	Sprite sprite2(7, 1, 2, 3, maths::vec4(0.2f, 0, 1, 1));*/
-	BatchRenderer2D renderer;
-
-#else
-	/*StaticSprite sprite1(5, 5, 4, 4, maths::vec4(1, 0, 1, 1), shader);
-	StaticSprite sprite2(7, 1, 2, 3, maths::vec4(0.2f, 0, 1, 1), shader);*/
-	Simple2DRenderer renderer;
-#endif
-
-	shader.setUniform2f("lightPosition", vec2(4, 1.5));
-	shader.setUniform4f("colour", vec4(0.2f, 0.3f, 0.8f, 1.0f));
-	//使光源位于中心 （4,1.5）是相对坐标 （8，4.5）是绝对坐标
-	//坐标系在vectexShader中调整
-
+	TileLayer layer2(&shader2);
+	layer2.add(new Sprite(-2, -2, 4, 4, vec4(0.8f, 0.2f, 0.8f, 1.0f)));
 
 	Timer timer;
 	double time = 0;
 	unsigned int frames = 0;
 	while (!window.closed())
 	{
-		//绕（1，1）旋转
-		mat4 mat = mat4::translate(vec3(1, 1, 1));
-		mat = mat * mat4::rotate(timer.elasped() * 50.0f, vec3(0, 0, 1));
-		mat = mat * mat4::translate(vec3(-1, -1, -1));
-		shader.setUniformMat4("modelMatrix", mat);
-
-		//timer.reset();
 		window.clear();
 		double x, y;
 		window.getMousePosition(x, y);
-		shader.setUniform2f("lightPosition", vec2((float)(x * 16.0f / 960.0f), (float)(9.0f - y * 9.0f / 540.0f)));
+		shader.enable();
+		shader.setUniform2f("lightPosition", vec2((float)(x * 32.0f / 960.0f - 16.0f), (float)(9.0f - y * 18.0f / 540.0f)));
+//		shader.setUniform2f("lightPosition", vec2(-8, -3));
+		shader2.enable();
+		shader2.setUniform2f("lightPosition", vec2((float)(x * 32.0f / 960.0f - 16.0f), (float)(9.0f - y * 18.0f / 540.0f)));
 
-#if BATCHRENDERER
-		renderer.begin();
-#endif
-		for (int i = 0; i < sprites.size(); ++i)
-		{
-			renderer.submit(sprites[i]);
-		}
-
-#if BATCHRENDERER
-		renderer.end();
-#endif
-
-		renderer.flush();
-
+		layer.render();
+		layer2.render();
 
 		window.update();
 		frames++;
