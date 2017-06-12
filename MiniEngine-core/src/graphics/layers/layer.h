@@ -14,7 +14,7 @@ namespace MiniEngine
 		private:
 			Renderer2D* m_pRenderer;
 			Shader* m_pShader;
-			std::vector<Renderable2D*> m_Renderables;
+			std::vector<Renderable2D*> m_renderables;
 			maths::mat4 m_projectionMatrix;
 		protected:
 			Layer(Renderer2D* renderer, Shader* shader, maths::mat4 projectionMatrix);

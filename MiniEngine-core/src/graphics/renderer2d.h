@@ -1,11 +1,14 @@
 #pragma once
 
-#include "renderable2d.h"
+#include <vector>
+#include "../maths/mat4.h"
 
 namespace MiniEngine
 {
 	namespace graphics
 	{
+		class Renderable2D;
+
 		class Renderer2D
 		{
 		protected:

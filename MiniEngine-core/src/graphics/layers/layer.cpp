@@ -18,15 +18,15 @@ namespace MiniEngine
 			delete m_pRenderer;
 			delete m_pShader;
 
-			for (int i = 0; i < m_Renderables.size(); ++i)
+			for (int i = 0; i < m_renderables.size(); ++i)
 			{
-				delete m_Renderables[i];
+				delete m_renderables[i];
 			}
 		}
 
 		void Layer::add(Renderable2D* renderable)
 		{
-			m_Renderables.push_back(renderable);
+			m_renderables.push_back(renderable);
 		}
 
 		void Layer::render()
@@ -34,13 +34,12 @@ namespace MiniEngine
 			m_pShader->enable();
 
 			m_pRenderer->begin();
-			//ÒÆ¶¯Õû¸öÍ¼²ã
-//			m_pRenderer->push(maths::mat4::translate(maths::vec3(5.0f, 5.0f, 0.0f)));
-			for (const Renderable2D* renderable : m_Renderables)
+
+			for (const Renderable2D* renderable : m_renderables)
 			{
-				m_pRenderer->submit(renderable);
+				renderable->submit(m_pRenderer);
 			}
-//			m_pRenderer->pop();
+
 			m_pRenderer->end();
 			m_pRenderer->flush();
 

@@ -20,6 +20,7 @@
 #include "src/graphics/Sprite.h"
 
 #include "src/graphics/layers/tileLayer.h"
+#include "src/graphics/layers/group.h"
 
 #include <time.h>
 
@@ -58,11 +59,22 @@ int main()
 	}
 #else
 
-	Sprite* button = new Sprite(-15.0f, 5.0f, 6, 3, maths::vec4(1, 1, 1, 1));
-	layer.add(button);
-	//TODO: bind Sprite(0.5f, 0.5f, 5, 2, maths::vec4(1, 0, 1, 1) to button for transform together
-	//we use Group
-	layer.add(new Sprite(0.5f, 0.5f, 5, 2, maths::vec4(1, 0, 1, 1)));
+	//Group* group = new Group(mat4::translate(vec3(-15.0f, 5.0f, 0.0f)));
+	//将平移作用于以下俩个sprite
+	//group->add(new Sprite(0, 0, 6, 3, vec4(1, 1, 1, 1)));
+	//group->add(new Sprite(0.5f, 0.5f, 5, 2, maths::vec4(1, 0, 1, 1)));
+
+	//layer.add(group);
+
+	Group* group = new Group(mat4::translate(vec3(-15.0f, 5.0f, 0.0f)) * mat4::rotate(45, vec3(0, 0, 1)));
+	group->add(new Sprite(0, 0, 6, 3, vec4(1, 1, 1, 1)));
+
+	Group* button = new Group(mat4::translate(vec3(0.5f, 0.5f, 0.0f)) * mat4::rotate(-90, vec3(0, 0, 1)));
+	button->add(new Sprite(0, 0, 5, 2, vec4(1, 0, 1, 1)));
+	button->add(new Sprite(0.5f, 0.5f, 3.0f, 1.0f, vec4(0.2f, 0.3f, 0.8f, 1)));
+	group->add(button);
+
+	layer.add(group);
 
 #endif
 
