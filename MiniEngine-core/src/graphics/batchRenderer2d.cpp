@@ -71,19 +71,19 @@ namespace MiniEngine
 
 			unsigned int c = a << 24 | b << 16 | g << 8 | r;
 
-			m_pBuffer->vertex = position;
+			m_pBuffer->vertex = *m_transformationBack * position;
 			m_pBuffer->color = c;
 			++m_pBuffer;
 
-			m_pBuffer->vertex = maths::vec3(position.x, position.y + size.y, position.z);
+			m_pBuffer->vertex = *m_transformationBack * maths::vec3(position.x, position.y + size.y, position.z);
 			m_pBuffer->color = c;
 			++m_pBuffer; 
 
-			m_pBuffer->vertex = maths::vec3(position.x + size.x, position.y + size.y, position.z);
+			m_pBuffer->vertex = *m_transformationBack * maths::vec3(position.x + size.x, position.y + size.y, position.z);
 			m_pBuffer->color = c;
 			++m_pBuffer;
 
-			m_pBuffer->vertex = maths::vec3(position.x + size.x, position.y, position.z);
+			m_pBuffer->vertex = *m_transformationBack * maths::vec3(position.x + size.x, position.y, position.z);
 			m_pBuffer->color = c;
 			++m_pBuffer;
 

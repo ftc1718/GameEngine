@@ -34,10 +34,13 @@ namespace MiniEngine
 			m_pShader->enable();
 
 			m_pRenderer->begin();
+			//ÒÆ¶¯Õû¸öÍ¼²ã
+//			m_pRenderer->push(maths::mat4::translate(maths::vec3(5.0f, 5.0f, 0.0f)));
 			for (const Renderable2D* renderable : m_Renderables)
 			{
 				m_pRenderer->submit(renderable);
 			}
+//			m_pRenderer->pop();
 			m_pRenderer->end();
 			m_pRenderer->flush();
 

@@ -24,6 +24,8 @@
 #include <time.h>
 
 
+#define TEST_50K_SPRITES 0
+
 /*Engine Test*/
 int main()
 {
@@ -40,19 +42,29 @@ int main()
 	Shader* s2 = new Shader("src/shaders/vertexShader.shader", "src/shaders/fragmentShader.shader");
 	Shader& shader = *s;
 	Shader& shader2 = *s2;
-	shader.enable();
-	shader2.enable();
-	shader.setUniform2f("lightPosition", vec2(4, 1.5));
-	shader2.setUniform2f("lightPosition", vec2(4, 1.5));
+	//shader.enable();
+	//shader2.enable();
+	//shader.setUniform2f("lightPosition", vec2(4, 1.5));
+	//shader2.setUniform2f("lightPosition", vec2(-2, -2));
 
 	TileLayer layer(&shader);
-	for (float y = -9.0f; y < 9.0f; y += 0.1)
+#if TEST_50K_SPRITES
+	for (float y = -9.0f; y < 9.0f; y += 0.1f)
 	{
-		for (float x = -16.0f; x < 16.0f; x += 0.1)
+		for (float x = -16.0f; x < 16.0f; x += 0.1f)
 		{
 			layer.add(new Sprite(x, y, 0.09f, 0.09f, maths::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
 		}
 	}
+#else
+
+	Sprite* button = new Sprite(-15.0f, 5.0f, 6, 3, maths::vec4(1, 1, 1, 1));
+	layer.add(button);
+	//TODO: bind Sprite(0.5f, 0.5f, 5, 2, maths::vec4(1, 0, 1, 1) to button for transform together
+	//we use Group
+	layer.add(new Sprite(0.5f, 0.5f, 5, 2, maths::vec4(1, 0, 1, 1)));
+
+#endif
 
 	TileLayer layer2(&shader2);
 	layer2.add(new Sprite(-2, -2, 4, 4, vec4(0.8f, 0.2f, 0.8f, 1.0f)));
@@ -67,12 +79,12 @@ int main()
 		window.getMousePosition(x, y);
 		shader.enable();
 		shader.setUniform2f("lightPosition", vec2((float)(x * 32.0f / 960.0f - 16.0f), (float)(9.0f - y * 18.0f / 540.0f)));
-//		shader.setUniform2f("lightPosition", vec2(-8, -3));
+		//		shader.setUniform2f("lightPosition", vec2(-8, -3));
 		shader2.enable();
 		shader2.setUniform2f("lightPosition", vec2((float)(x * 32.0f / 960.0f - 16.0f), (float)(9.0f - y * 18.0f / 540.0f)));
 
 		layer.render();
-		layer2.render();
+//		layer2.render();
 
 		window.update();
 		frames++;

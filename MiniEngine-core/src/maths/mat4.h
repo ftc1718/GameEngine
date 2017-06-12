@@ -12,7 +12,8 @@ namespace MiniEngine
 			union
 			{
 				float elements[4 * 4];
-				vec4 rows[4];
+				//vec4 rows[4];
+				vec4 columns[4];//°´ÁÐ´æ´¢
 			};
 
 			mat4();
@@ -23,6 +24,12 @@ namespace MiniEngine
 			mat4& multiply(const mat4& other);
 			friend mat4 operator*(mat4 left, const mat4& right);
 			mat4& operator*=(const mat4& other);
+
+			vec3 multiply(const vec3& other) const;
+			friend vec3 operator*(const mat4& left, const vec3& right);
+
+			vec4 multiply(const vec4& other) const;
+			friend vec4 operator*(const mat4& left, const vec4& right);
 
 			vec4 getColumn(int index) const;
 
