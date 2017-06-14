@@ -4,6 +4,7 @@
 
 namespace MiniEngine
 {
+	//ÓÎÏ·ÒıÇæ¼Ü¹¹p291
 	class Timer
 	{
 	private:
