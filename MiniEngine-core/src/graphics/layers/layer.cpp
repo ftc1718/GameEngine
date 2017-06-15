@@ -18,7 +18,7 @@ namespace MiniEngine
 			delete m_pRenderer;
 			delete m_pShader;
 
-			for (int i = 0; i < m_renderables.size(); ++i)
+			for (size_t i = 0; i < m_renderables.size(); ++i)
 			{
 				delete m_renderables[i];
 			}

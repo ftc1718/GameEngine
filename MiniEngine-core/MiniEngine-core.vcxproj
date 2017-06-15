@@ -147,6 +147,7 @@
     <ClCompile Include="src\graphics\simple2dRenderer.cpp" />
     <ClCompile Include="src\graphics\Sprite.cpp" />
     <ClCompile Include="src\graphics\staticSprite.cpp" />
+    <ClCompile Include="src\graphics\texture.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
     <ClCompile Include="src\maths\mat4.cpp" />
     <ClCompile Include="src\maths\vec2.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="src\graphics\simple2dRenderer.h" />
     <ClInclude Include="src\graphics\Sprite.h" />
     <ClInclude Include="src\graphics\staticSprite.h" />
+    <ClInclude Include="src\graphics\texture.h" />
     <ClInclude Include="src\graphics\window.h" />
     <ClInclude Include="src\maths\mat4.h" />
     <ClInclude Include="src\maths\maths.h" />

@@ -4,10 +4,10 @@ namespace MiniEngine
 {
 	namespace utils
 	{
-		std::string readFile(const std::string& filePath)
+		std::string readFile(const std::string& fileName)
 		{
 			FILE* file;
-			file = fopen(filePath.c_str(), "rb");
+			file = fopen(fileName.c_str(), "rb");
 
 			fseek(file, 0, SEEK_END);
 			unsigned long length = ftell(file);
@@ -18,6 +18,39 @@ namespace MiniEngine
 			fclose(file);
 
 			return result;
+		}
+
+		BYTE* loadTexture(const char* fileName, GLsizei* width, GLsizei* height)
+		{
+			//image format
+			FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
+			//pointer to the image, once loaded
+			FIBITMAP *dib = nullptr;
+
+			//check the file signature and deduce its format
+			fif = FreeImage_GetFileType(fileName, 0);
+			//if still unknown, try to guess the file format from the file extension
+			if (fif == FIF_UNKNOWN)
+				fif = FreeImage_GetFIFFromFilename(fileName);
+			//if still unkown, return failure
+			if (fif == FIF_UNKNOWN)
+				return nullptr;
+
+			//check that the plugin has reading capabilities and load the file
+			if (FreeImage_FIFSupportsReading(fif))
+				dib = FreeImage_Load(fif, fileName);
+			//if the image failed to load, return failure
+			if (!dib)
+				return nullptr;
+
+			BYTE* bits = nullptr;
+			//retrieve the image data
+			bits = FreeImage_GetBits(dib);
+			//get the image width and height
+			*width = FreeImage_GetWidth(dib);
+			*height = FreeImage_GetHeight(dib);
+
+			return bits;
 		}
 	}
 }
