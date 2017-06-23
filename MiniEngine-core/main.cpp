@@ -42,19 +42,37 @@ int main()
 	Shader* s = new Shader("src/shaders/vertexShader.shader", "src/shaders/fragmentShader.shader");
 	Shader& shader = *s;
 
-	glActiveTexture(GL_TEXTURE0);
-	Texture texture("test.png");
-	texture.bind();
+
+	GLint texIDs[] =
+	{
+		0,1,2,3,4,5,6,7,8,9
+	};
 
 	shader.enable();
-	shader.setUniform1i("tex", 0);
+	shader.setUniform1iv("textures", texIDs, 10);
+
+	Texture* textures[] =
+	{
+		new Texture("test.png"),
+		new Texture("test2.png"),
+		new Texture("test3.png")
+
+	};
 
 	TileLayer layer(&shader);
 	for (float y = -9.0f; y < 9.0f; y++)
 	{
 		for (float x = -16.0f; x < 16.0f; x++)
 		{
-			layer.add(new Sprite(x, y, 0.9f, 0.9f, maths::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
+			//layer.add(new Sprite(x, y, 0.9f, 0.9f, maths::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
+			if (rand() % 4 == 0)
+			{
+				layer.add(new Sprite(x, y, 0.9f, 0.9f, maths::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
+			}
+			else
+			{
+				layer.add(new Sprite(x, y, 0.9f, 0.9f, textures[rand() % 3]));
+			}
 		}
 	}
 
@@ -80,6 +98,11 @@ int main()
 			printf("%d fps\n", frames);
 			frames = 0;
 		}
+	}
+
+	for (int i = 0; i < 3; ++i)
+	{
+		delete textures[i];
 	}
 	return 0;
 }

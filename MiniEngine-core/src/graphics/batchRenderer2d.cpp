@@ -19,22 +19,24 @@ namespace MiniEngine
 		{
 			glGenVertexArrays(1, &m_vertexArrayObj);
 			glGenBuffers(1, &m_vertexBufferObj);
-			
+
 			glBindVertexArray(m_vertexArrayObj);
 			glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObj);
 			glBufferData(GL_ARRAY_BUFFER, RENDERER_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW);
 
 			glEnableVertexAttribArray(SHADER_VERTEX_INDEX);
 			glEnableVertexAttribArray(SHADER_UV_INDEX);
+			glEnableVertexAttribArray(SHADER_TID_INDEX);
 			glEnableVertexAttribArray(SHADER_COLOR_INDEX);
 
 			glVertexAttribPointer(SHADER_VERTEX_INDEX, 3, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)0);
 			glVertexAttribPointer(SHADER_UV_INDEX, 2, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::uv)));
+			glVertexAttribPointer(SHADER_TID_INDEX, 1, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::tid)));
 			glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::color)));
 
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-			GLuint* indices = new GLuint [RENDERER_INDICES_SIZE];
+			GLuint* indices = new GLuint[RENDERER_INDICES_SIZE];
 
 			int offset = 0;
 			for (int i = 0; i < RENDERER_INDICES_SIZE; i += 6)
@@ -67,31 +69,70 @@ namespace MiniEngine
 			const maths::vec2& size = renderable2d->getSize();
 			const maths::vec4& color = renderable2d->getColor();
 			const std::vector<maths::vec2>& uv = renderable2d->getUV();
+			//tid == 0 not to use texture
+			const GLuint tid = renderable2d->gettID();
 
-			int r = color.x * 255.0f;
-			int g = color.y * 255.0f;
-			int b = color.z * 255.0f;
-			int a = color.w * 255.0f;
+			unsigned int c = 0;
+			//texSlot == -1 means do not use texture
+			float texSlot = -1.0f;
 
-			unsigned int c = a << 24 | b << 16 | g << 8 | r;
+			if (tid > 0)
+			{
+				bool found = false;
+				for (int i = 0; i != m_textureSlots.size(); ++i)
+				{
+					if (m_textureSlots[i] == tid)
+					{
+						texSlot = (float)i;
+						found = true;
+						break;
+					}
+				}
+
+				if (!found)
+				{
+					if (m_textureSlots.size() >= 32)
+					{
+						end();
+						flush();
+						begin();
+						m_textureSlots.clear();
+					}
+					m_textureSlots.push_back(tid);
+					texSlot = (float)(m_textureSlots.size() - 1);
+				}
+			}
+			else
+			{
+				int r = color.x * 255.0f;
+				int g = color.y * 255.0f;
+				int b = color.z * 255.0f;
+				int a = color.w * 255.0f;
+
+				c = a << 24 | b << 16 | g << 8 | r;
+			}
 
 			m_pBuffer->vertex = *m_transformationBack * position;
 			m_pBuffer->uv = uv[0];
+			m_pBuffer->tid = texSlot;
 			m_pBuffer->color = c;
 			++m_pBuffer;
 
 			m_pBuffer->vertex = *m_transformationBack * maths::vec3(position.x, position.y + size.y, position.z);
 			m_pBuffer->uv = uv[1];
+			m_pBuffer->tid = texSlot;
 			m_pBuffer->color = c;
-			++m_pBuffer; 
+			++m_pBuffer;
 
 			m_pBuffer->vertex = *m_transformationBack * maths::vec3(position.x + size.x, position.y + size.y, position.z);
 			m_pBuffer->uv = uv[2];
+			m_pBuffer->tid = texSlot;
 			m_pBuffer->color = c;
 			++m_pBuffer;
 
 			m_pBuffer->vertex = *m_transformationBack * maths::vec3(position.x + size.x, position.y, position.z);
 			m_pBuffer->uv = uv[3];
+			m_pBuffer->tid = texSlot;
 			m_pBuffer->color = c;
 			++m_pBuffer;
 
@@ -101,11 +142,17 @@ namespace MiniEngine
 		void BatchRenderer2D::end()
 		{
 			glUnmapBuffer(GL_ARRAY_BUFFER);
-			glBindBuffer(GL_ARRAY_BUFFER, 0); 
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
 		}
 
 		void BatchRenderer2D::flush()
 		{
+			for (int i = 0; i != m_textureSlots.size(); ++i)
+			{
+				glActiveTexture(GL_TEXTURE0 + i);
+				glBindTexture(GL_TEXTURE_2D, m_textureSlots[i]);
+			}
+
 			glBindVertexArray(m_vertexArrayObj);
 			m_pIndexBufferObj->bind();
 

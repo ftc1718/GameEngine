@@ -22,6 +22,8 @@ namespace MiniEngine
 			void bind() const;
 			void unbind() const;
 
+			//m_tID start from 1
+			inline const GLuint getID() const { return m_tID; }
 			inline const GLsizei getWidth() const { return m_width; }
 			inline const GLsizei getHeight() const { return m_height; }
 		private:

@@ -5,6 +5,7 @@
 #include "buffers/vertexArray.h"
 #include "shaders.h"
 #include "renderer2d.h"
+#include "texture.h"
 
 #include "../maths/vec2.h"
 #include "../maths/vec3.h"
@@ -18,16 +19,18 @@ namespace MiniEngine
 		{
 			maths::vec3 vertex;
 			maths::vec2 uv;//texture coordinate
+			float tid;
 			unsigned int color;
 		};
 
 		class Renderable2D
 		{
-		private:
+		protected:
 			maths::vec3 m_position;
 			maths::vec2 m_size;//Í¼Ôª´óÐ¡
 			maths::vec4 m_color;
 			std::vector<maths::vec2> m_uv;
+			Texture* m_pTexture;
 		protected:
 			Renderable2D() { setUVDefaults(); }
 		public:
@@ -48,6 +51,7 @@ namespace MiniEngine
 			inline const maths::vec2& getSize() const { return m_size; }
 			inline const maths::vec4& getColor() const { return m_color; }
 			inline const std::vector<maths::vec2>& getUV() const { return m_uv; }
+			inline const GLuint gettID() const { return m_pTexture == nullptr ? 0 : m_pTexture->getID(); }
 		private:
 			void setUVDefaults()
 			{
