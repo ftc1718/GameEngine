@@ -13,6 +13,27 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="源文件\ext">
+      <UniqueIdentifier>{2f54c914-21ee-43b8-a22c-cc8186e9ad60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ext\freetype">
+      <UniqueIdentifier>{4acaac1d-b99d-4241-9b4a-64a46fb82a3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\ext">
+      <UniqueIdentifier>{47401c87-f402-4851-ad3e-610327b9d0d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\ext\freetype">
+      <UniqueIdentifier>{3140d80a-6d45-4962-a8ae-5689ee61abaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ext\freetype\FT_MODULES">
+      <UniqueIdentifier>{75f1f401-9034-4d37-97a7-28baf5e12006}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ext\freetype-gl">
+      <UniqueIdentifier>{d614fb3a-f928-4855-b787-ef3eae50e217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\ext\freetype-gl">
+      <UniqueIdentifier>{e4768855-25c1-4635-a9cf-931b23edddc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,6 +92,135 @@
     </ClCompile>
     <ClCompile Include="src\graphics\texture.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\autofit\autofit.c">
+      <Filter>源文件\ext\freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\bdf\bdf.c">
+      <Filter>源文件\ext\freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\cff\cff.c">
+      <Filter>源文件\ext\freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftbase.c">
+      <Filter>源文件\ext\freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftbitmap.c">
+      <Filter>源文件\ext\freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\cache\ftcache.c">
+      <Filter>源文件\ext\freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftdebug.c">
+      <Filter>源文件\ext\freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftfstype.c">
+      <Filter>源文件\ext\freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftgasp.c">
+      <Filter>源文件\ext\freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftglyph.c">
+      <Filter>源文件\ext\freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\gzip\ftgzip.c">
+      <Filter>源文件\ext\freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftinit.c">
+      <Filter>源文件\ext\freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\lzw\ftlzw.c">
+      <Filter>源文件\ext\freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftstroke.c">
+      <Filter>源文件\ext\freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftsystem.c">
+      <Filter>源文件\ext\freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\smooth\smooth.c">
+      <Filter>源文件\ext\freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftgxval.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftbbox.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftlcdfil.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftmm.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftotval.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftpatent.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftpfr.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\fttype1.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftwinfnt.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftxf86.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\pcf\pcf.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\pfr\pfr.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\psaux\psaux.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\pshinter\pshinter.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\psnames\psmodule.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\raster\raster.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\sfnt\sfnt.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\truetype\truetype.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\type1\type1.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\cid\type1cid.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\type42\type42.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\winfonts\winfnt.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype\src\base\ftsynth.c">
+      <Filter>源文件\ext\freetype\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype-gl\texture-font.c">
+      <Filter>源文件\ext\freetype-gl</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype-gl\platform.c">
+      <Filter>源文件\ext\freetype-gl</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype-gl\texture-atlas.c">
+      <Filter>源文件\ext\freetype-gl</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\freetype-gl\vector.c">
+      <Filter>源文件\ext\freetype-gl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +289,45 @@
     </ClInclude>
     <ClInclude Include="src\graphics\texture.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\freetype\include\ft2build.h">
+      <Filter>头文件\ext\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\freetype\include\config\ftconfig.h">
+      <Filter>头文件\ext\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\freetype\include\config\ftheader.h">
+      <Filter>头文件\ext\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\freetype\include\config\ftmodule.h">
+      <Filter>头文件\ext\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\freetype\include\config\ftoption.h">
+      <Filter>头文件\ext\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\freetype\include\config\ftstdlib.h">
+      <Filter>头文件\ext\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\freetype-gl\freetype-gl.h">
+      <Filter>头文件\ext\freetype-gl</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\freetype-gl\opengl.h">
+      <Filter>头文件\ext\freetype-gl</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\freetype-gl\platform.h">
+      <Filter>头文件\ext\freetype-gl</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\freetype-gl\texture-atlas.h">
+      <Filter>头文件\ext\freetype-gl</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\freetype-gl\texture-font.h">
+      <Filter>头文件\ext\freetype-gl</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\freetype-gl\vec234.h">
+      <Filter>头文件\ext\freetype-gl</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\freetype-gl\vector.h">
+      <Filter>头文件\ext\freetype-gl</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
