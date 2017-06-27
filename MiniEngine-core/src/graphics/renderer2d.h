@@ -37,9 +37,11 @@ namespace MiniEngine
 				}
 				m_transformationBack = &m_transformationMatrix.back();
 			}
-			virtual void begin() { }
+			
+			virtual void begin() = 0;
 			virtual void submit(const Renderable2D* renderable2d) = 0;
-			virtual void end() { }
+			virtual void drawString(const std::string& text, const maths::vec3& position, const maths::vec4& color) = 0;
+			virtual void end() = 0;
 			virtual void flush() = 0;
 		};
 	}

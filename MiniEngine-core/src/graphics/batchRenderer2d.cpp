@@ -55,6 +55,9 @@ namespace MiniEngine
 			m_pIndexBufferObj = new IndexBuffer(indices, RENDERER_INDICES_SIZE);
 
 			glBindVertexArray(0);
+
+			m_ftAtlas = ftgl::texture_atlas_new(512, 512, 1);
+			m_ftFont = ftgl::texture_font_new_from_file(m_ftAtlas, 80, "arial.ttf");
 		}
 		//bigin end只在第一次submit时进行绑定
 		void BatchRenderer2D::begin()
@@ -102,15 +105,13 @@ namespace MiniEngine
 					texSlot = (float)(m_textureSlots.size() - 1);
 				}
 			}
-			else
-			{
-				int r = color.x * 255.0f;
-				int g = color.y * 255.0f;
-				int b = color.z * 255.0f;
-				int a = color.w * 255.0f;
 
-				c = a << 24 | b << 16 | g << 8 | r;
-			}
+			int r = color.x * 255.0f;
+			int g = color.y * 255.0f;
+			int b = color.z * 255.0f;
+			int a = color.w * 255.0f;
+
+			c = a << 24 | b << 16 | g << 8 | r;
 
 			m_pBuffer->vertex = *m_transformationBack * position;
 			m_pBuffer->uv = uv[0];
@@ -137,6 +138,99 @@ namespace MiniEngine
 			++m_pBuffer;
 
 			m_indexCnt += 6;//通过六个索引绘制一个矩形
+		}
+
+		void BatchRenderer2D::drawString(const std::string& text, const maths::vec3& position, const maths::vec4& color)
+		{
+			using namespace ftgl;
+
+			float texSlot = -1.0f;
+			bool found = false;
+			for (int i = 0; i != m_textureSlots.size(); ++i)
+			{
+				if (m_textureSlots[i] == m_ftAtlas->id)
+				{
+					texSlot = (float)i;
+					found = true;
+					break;
+				}
+			}
+
+			if (!found)
+			{
+				if (m_textureSlots.size() >= 32)
+				{
+					end();
+					flush();
+					begin();
+					m_textureSlots.clear();
+				}
+				m_textureSlots.push_back(m_ftAtlas->id);
+				texSlot = (float)(m_textureSlots.size() - 1);
+			}
+
+			int r = color.x * 255.0f;
+			int g = color.y * 255.0f;
+			int b = color.z * 255.0f;
+			int a = color.w * 255.0f;
+
+			unsigned int c = a << 24 | b << 16 | g << 8 | r;
+
+			float scaleX = 960.0f / 32.0f;
+			float scaleY = 540.0f / 18.0f;
+
+			float x = position.x;
+
+			for (int i = 0; i < text.length(); ++i)
+			{
+				char c = text[i];
+				texture_glyph_t* glyph = texture_font_get_glyph(m_ftFont, c);
+				if (glyph)
+				{
+					if (i > 0)
+					{
+						float kerning = texture_glyph_get_kerning(glyph, text[i - 1]);
+						x += kerning / scaleX;
+					}
+					float x0 = x + glyph->offset_x / scaleX;
+					float y0 = position.y + glyph->offset_y / scaleY;
+					float x1 = x0 + glyph->width / scaleX;
+					float y1 = y0 - glyph->height / scaleY;
+
+					float u0 = glyph->s0;
+					float v0 = glyph->t0;
+					float u1 = glyph->s1;
+					float v1 = glyph->t1;
+
+					m_pBuffer->vertex = *m_transformationBack * maths::vec3(x0, y0, 0.0f);
+					m_pBuffer->uv = maths::vec2(u0, v0);
+					m_pBuffer->tid = texSlot;
+					m_pBuffer->color = c;
+					++m_pBuffer;
+
+					m_pBuffer->vertex = *m_transformationBack * maths::vec3(x0, y1, 0.0f);
+					m_pBuffer->uv = maths::vec2(u0, v1);
+					m_pBuffer->tid = texSlot;
+					m_pBuffer->color = c;
+					++m_pBuffer;
+
+					m_pBuffer->vertex = *m_transformationBack * maths::vec3(x1, y1, 0.0f);
+					m_pBuffer->uv = maths::vec2(u1, v1);
+					m_pBuffer->tid = texSlot;
+					m_pBuffer->color = c;
+					++m_pBuffer;
+
+					m_pBuffer->vertex = *m_transformationBack * maths::vec3(x1, y0, 0.0f);
+					m_pBuffer->uv = maths::vec2(u1, v0);
+					m_pBuffer->tid = texSlot;
+					m_pBuffer->color = c;
+					++m_pBuffer;
+
+					m_indexCnt += 6;
+
+					x += glyph->advance_x / scaleX;
+				}
+			}
 		}
 
 		void BatchRenderer2D::end()

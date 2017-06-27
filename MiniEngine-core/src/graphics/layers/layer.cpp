@@ -40,6 +40,8 @@ namespace MiniEngine
 				renderable->submit(m_pRenderer);
 			}
 
+			m_pRenderer->drawString("Hello!", maths::vec3(-5, 0, 0), maths::vec4(1, 1, 1, 1));
+
 			m_pRenderer->end();
 			m_pRenderer->flush();
 

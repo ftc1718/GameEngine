@@ -222,6 +222,9 @@
     <ClCompile Include="ext\freetype-gl\vector.c">
       <Filter>源文件\ext\freetype-gl</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\label.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\window.h">
@@ -328,6 +331,9 @@
     </ClInclude>
     <ClInclude Include="ext\freetype-gl\vector.h">
       <Filter>头文件\ext\freetype-gl</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\label.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

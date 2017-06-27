@@ -32,10 +32,10 @@ namespace MiniEngine
 			std::vector<maths::vec2> m_uv;
 			Texture* m_pTexture;
 		protected:
-			Renderable2D() { setUVDefaults(); }
+			Renderable2D() : m_pTexture(nullptr) { setUVDefaults(); }
 		public:
 			Renderable2D(maths::vec3 position, maths::vec2 size, maths::vec4 color)
-				: m_position(position), m_size(size), m_color(color)
+				: m_position(position), m_size(size), m_color(color), m_pTexture(nullptr)
 			{ 
 				setUVDefaults();
 			}
@@ -51,7 +51,7 @@ namespace MiniEngine
 			inline const maths::vec2& getSize() const { return m_size; }
 			inline const maths::vec4& getColor() const { return m_color; }
 			inline const std::vector<maths::vec2>& getUV() const { return m_uv; }
-			inline const GLuint gettID() const { return m_pTexture == nullptr ? 0 : m_pTexture->getID(); }
+			inline const GLuint gettID() const { return m_pTexture ? m_pTexture->getID() : 0; }
 		private:
 			void setUVDefaults()
 			{

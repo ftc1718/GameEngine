@@ -68,6 +68,9 @@ namespace MiniEngine
 				return false;
 			}
 
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 			std::cout << "OpenGL" << glGetString(GL_VERSION) << std::endl;
 
 			return true;

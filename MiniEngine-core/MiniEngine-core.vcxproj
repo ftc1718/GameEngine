@@ -185,6 +185,7 @@
     <ClCompile Include="src\graphics\buffers\buffer.cpp" />
     <ClCompile Include="src\graphics\buffers\indexBuffer.cpp" />
     <ClCompile Include="src\graphics\buffers\vertexArray.cpp" />
+    <ClCompile Include="src\graphics\label.cpp" />
     <ClCompile Include="src\graphics\layers\group.cpp" />
     <ClCompile Include="src\graphics\layers\layer.cpp" />
     <ClCompile Include="src\graphics\layers\tileLayer.cpp" />
@@ -229,6 +230,7 @@
     <ClInclude Include="src\graphics\staticSprite.h" />
     <ClInclude Include="src\graphics\texture.h" />
     <ClInclude Include="src\graphics\window.h" />
+    <ClInclude Include="src\graphics\label.h" />
     <ClInclude Include="src\maths\mat4.h" />
     <ClInclude Include="src\maths\maths.h" />
     <ClInclude Include="src\maths\vec2.h" />
