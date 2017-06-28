@@ -14,6 +14,7 @@ namespace MiniEngine
 			maths::mat4 m_transformationMatrix;
 		public:
 			Group(const maths::mat4& transform);
+			~Group();
 			void add(Renderable2D* renderable);
 			void submit(Renderer2D* renderer) const override;
 		};

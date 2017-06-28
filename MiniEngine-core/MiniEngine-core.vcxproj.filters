@@ -34,63 +34,48 @@
     <Filter Include="头文件\ext\freetype-gl">
       <UniqueIdentifier>{e4768855-25c1-4635-a9cf-931b23edddc7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\graphics">
+      <UniqueIdentifier>{c6acd05c-7ff5-4fc8-aa5f-a4073a0eaa31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\maths">
+      <UniqueIdentifier>{a84ee85a-2648-49b2-9381-1314d096707d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\utils">
+      <UniqueIdentifier>{3a754243-d88c-45c7-b3c4-4a7281843f47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\graphics\buffers">
+      <UniqueIdentifier>{09888563-bf95-4454-8f77-16bff2b0f088}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\graphics\layers">
+      <UniqueIdentifier>{3133429a-76d0-4c38-86dc-fa7ee436ff6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\graphics\renderables">
+      <UniqueIdentifier>{5de68a0c-b910-4a42-9bcc-ef87acaa0e06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\graphics">
+      <UniqueIdentifier>{8fed6eb5-a812-4069-9b76-6c477300e39a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\maths">
+      <UniqueIdentifier>{3c439ced-ffa3-41c4-a081-87d48526266d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\utils">
+      <UniqueIdentifier>{0fbc57d9-378f-415d-a97c-0df132ccc02a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\graphics\buffers">
+      <UniqueIdentifier>{d7708e60-fd83-4e20-9204-ab6ffa2e2819}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\graphics\layers">
+      <UniqueIdentifier>{93707a4a-4e3f-46b0-9bf7-9e811954da9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\graphics\renderables">
+      <UniqueIdentifier>{ff0be327-75c3-418c-86fd-c5386f0ddcc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{522b3018-62a0-4154-9670-cf8a493312b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\window.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\maths\vec2.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\maths\vec3.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\maths\vec4.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\maths\mat4.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\utility\fileUtils.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\shaders.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\buffers\buffer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\buffers\indexBuffer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\buffers\vertexArray.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\simple2dRenderer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\batchRenderer2d.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\staticSprite.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\Sprite.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\layers\layer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\layers\tileLayer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\layers\group.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\texture.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ext\freetype\src\autofit\autofit.c">
@@ -222,77 +207,65 @@
     <ClCompile Include="ext\freetype-gl\vector.c">
       <Filter>源文件\ext\freetype-gl</Filter>
     </ClCompile>
+    <ClCompile Include="src\utility\fileUtils.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\batchRenderer2d.cpp">
+      <Filter>源文件\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\maths\mat4.cpp">
+      <Filter>源文件\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\shaders.cpp">
+      <Filter>源文件\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\simple2dRenderer.cpp">
+      <Filter>源文件\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\texture.cpp">
+      <Filter>源文件\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\maths\vec3.cpp">
+      <Filter>源文件\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\maths\vec4.cpp">
+      <Filter>源文件\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\maths\vec2.cpp">
+      <Filter>源文件\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\window.cpp">
+      <Filter>源文件\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\buffers\buffer.cpp">
+      <Filter>源文件\graphics\buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\buffers\indexBuffer.cpp">
+      <Filter>源文件\graphics\buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\buffers\vertexArray.cpp">
+      <Filter>源文件\graphics\buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\layers\layer.cpp">
+      <Filter>源文件\graphics\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\layers\group.cpp">
+      <Filter>源文件\graphics\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\layers\tileLayer.cpp">
+      <Filter>源文件\graphics\layers</Filter>
+    </ClCompile>
     <ClCompile Include="src\graphics\label.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\graphics\renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Sprite.cpp">
+      <Filter>源文件\graphics\renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\staticSprite.cpp">
+      <Filter>源文件\graphics\renderables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\graphics\window.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\maths\vec2.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\maths\vec3.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\maths\vec4.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\maths\maths.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\maths\mat4.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utility\fileUtils.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\shaders.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\buffers\buffer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\buffers\indexBuffer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\buffers\vertexArray.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\renderable2d.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\renderer2d.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\simple2dRenderer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\batchRenderer2d.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\staticSprite.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\Sprite.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utility\timer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\layers\layer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\layers\tileLayer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\layers\group.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\texture.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="ext\freetype\include\ft2build.h">
       <Filter>头文件\ext\freetype</Filter>
     </ClInclude>
@@ -332,14 +305,88 @@
     <ClInclude Include="ext\freetype-gl\vector.h">
       <Filter>头文件\ext\freetype-gl</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\batchRenderer2d.h">
+      <Filter>头文件\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\shaders.h">
+      <Filter>头文件\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\renderer2d.h">
+      <Filter>头文件\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\simple2dRenderer.h">
+      <Filter>头文件\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\window.h">
+      <Filter>头文件\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utility\fileUtils.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utility\timer.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\texture.h">
+      <Filter>头文件\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maths\vec4.h">
+      <Filter>头文件\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maths\vec3.h">
+      <Filter>头文件\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maths\vec2.h">
+      <Filter>头文件\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maths\maths.h">
+      <Filter>头文件\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maths\mat4.h">
+      <Filter>头文件\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\buffers\buffer.h">
+      <Filter>头文件\graphics\buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\buffers\indexBuffer.h">
+      <Filter>头文件\graphics\buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\buffers\vertexArray.h">
+      <Filter>头文件\graphics\buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\layers\layer.h">
+      <Filter>头文件\graphics\layers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\layers\tileLayer.h">
+      <Filter>头文件\graphics\layers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\layers\group.h">
+      <Filter>头文件\graphics\layers</Filter>
+    </ClInclude>
     <ClInclude Include="src\graphics\label.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\graphics\renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\renderable2d.h">
+      <Filter>头文件\graphics\renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\staticSprite.h">
+      <Filter>头文件\graphics\renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\Sprite.h">
+      <Filter>头文件\graphics\renderables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\shaders\vertexShader.shader" />
-    <None Include="src\shaders\fragmentShader.shader" />
-    <None Include="src\shaders\vertexShader.tutorial" />
-    <None Include="src\shaders\fragmentShader.tutorial" />
+    <None Include="src\shaders\fragmentShader.shader">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="src\shaders\fragmentShader.tutorial">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="src\shaders\vertexShader.shader">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="src\shaders\vertexShader.tutorial">
+      <Filter>shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

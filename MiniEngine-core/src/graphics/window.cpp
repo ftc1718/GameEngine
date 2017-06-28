@@ -10,9 +10,7 @@ namespace MiniEngine
 		bool Window::m_mouseButtons[MAX_BUTTONS];
 		double Window::m_x;
 		double Window::m_y;*/
-		
-		void windowResize(GLFWwindow* window, int width, int height);
-		
+
 		Window::Window(const char* title, int width, int height)
 			: m_pTitle(title), m_width(width), m_height(height)
 		{
@@ -24,11 +22,15 @@ namespace MiniEngine
 			for (int i = 0; i < MAX_KEYS; ++i)
 			{
 				m_keys[i] = false;
+				m_keyState[i] = false;
+				m_keyTyped[i] = false;
 			}
 
 			for (int i = 0; i < MAX_BUTTONS; ++i)
 			{
 				m_mouseButtons[i] = false;
+				m_mouseState[i] = false;
+				m_mouseClicked[i] = false;
 			}
 		}
 
@@ -54,7 +56,7 @@ namespace MiniEngine
 			glfwMakeContextCurrent(m_pWindow);
 			glfwSetWindowUserPointer(m_pWindow, this);
 
-			glfwSetWindowSizeCallback(m_pWindow, windowResize);
+			glfwSetFramebufferSizeCallback(m_pWindow, windowResize);
 			glfwSetKeyCallback(m_pWindow, keyCallback);
 			glfwSetMouseButtonCallback(m_pWindow, mouseButtonCallback);
 			glfwSetCursorPosCallback(m_pWindow, cursorPositionCallback);
@@ -89,6 +91,19 @@ namespace MiniEngine
 
 		void Window::update()
 		{
+			for (int i = 0; i < MAX_KEYS; i++)
+			{
+				m_keyTyped[i] = m_keys[i] && !m_keyState[i];
+			}
+			
+			for (int i = 0; i < MAX_BUTTONS; i++)
+			{
+				m_mouseClicked[i] = m_mouseButtons[i] && !m_mouseState[i];
+			}
+
+			memcpy(m_keyState, m_keys, MAX_KEYS);
+			memcpy(m_mouseState, m_mouseButtons, MAX_BUTTONS);
+
 			GLenum error = glGetError();
 			if (error != GL_NO_ERROR)
 			{
@@ -96,11 +111,6 @@ namespace MiniEngine
 			}
 			glfwPollEvents();
 			glfwSwapBuffers(m_pWindow);
-		}
-
-		void windowResize(GLFWwindow* window, int width, int height)
-		{
-			glViewport(0, 0, width, height);
 		}
 
 		bool Window::isKeyPressed(unsigned int keyCode) const
@@ -113,6 +123,16 @@ namespace MiniEngine
 			return m_keys[keyCode];
 		}
 
+		bool Window::isKeyTyped(unsigned int keyCode) const
+		{
+			if (keyCode >= MAX_KEYS)
+			{
+				return false;
+			}
+
+			return m_keyTyped[keyCode];
+		}
+
 		bool Window::isMouseButtonPressed(unsigned int mouseButton) const
 		{
 			if (mouseButton >= MAX_BUTTONS)
@@ -123,27 +143,45 @@ namespace MiniEngine
 			return m_mouseButtons[mouseButton];
 		}
 
+		bool Window::isMouseButtonClicked(unsigned int mouseButton) const
+		{
+			if (mouseButton >= MAX_BUTTONS)
+			{
+				return false;
+			}
+
+			return m_mouseClicked[mouseButton];
+		}
+
 		void Window::getMousePosition(double& x, double& y) const
 		{
 			x = m_x;
 			y = m_y;
 		}
 
+		void windowResize(GLFWwindow* window, int width, int height)
+		{
+			glViewport(0, 0, width, height);
+			Window* win = (Window*)glfwGetWindowUserPointer(window);
+			win->m_width = width;
+			win->m_height = height;
+		}
+
 		void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
-			Window *win = (Window*)glfwGetWindowUserPointer(window);
+			Window* win = (Window*)glfwGetWindowUserPointer(window);
 			win->m_keys[key] = action != GLFW_RELEASE;
 		}
 
 		void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
 		{
-			Window *win = (Window*)glfwGetWindowUserPointer(window);
+			Window* win = (Window*)glfwGetWindowUserPointer(window);
 			win->m_mouseButtons[button] = action != GLFW_RELEASE;
 		}
 
 		void cursorPositionCallback(GLFWwindow* window, double xpos, double ypos)
 		{
-			Window *win = (Window*)glfwGetWindowUserPointer(window);
+			Window* win = (Window*)glfwGetWindowUserPointer(window);
 			win->m_x = xpos;
 			win->m_y = ypos;
 		}

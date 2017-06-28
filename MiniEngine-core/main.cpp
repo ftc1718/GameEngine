@@ -90,11 +90,12 @@ int main()
 	unsigned int frames = 0;
 	while (!window.closed())
 	{
+		std::cout << window.getWidth() << ", " << window.getHeight() << std::endl;
 		window.clear();
 		double x, y;
 		window.getMousePosition(x, y);
 		shader.enable();
-		shader.setUniform2f("lightPosition", vec2((float)(x * 32.0f / 960.0f - 16.0f), (float)(9.0f - y * 18.0f / 540.0f)));
+		shader.setUniform2f("lightPosition", vec2((float)(x * 32.0f / window.getWidth() - 16.0f), (float)(9.0f - y * 18.0f / window.getHeight())));
 
 		layer.render();
 

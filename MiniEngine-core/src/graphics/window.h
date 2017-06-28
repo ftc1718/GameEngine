@@ -20,7 +20,11 @@ namespace MiniEngine
 
 			//these can be static
 			bool m_keys[MAX_KEYS];
+			bool m_keyState[MAX_KEYS];
+			bool m_keyTyped[MAX_KEYS];
 			bool m_mouseButtons[MAX_BUTTONS];
+			bool m_mouseState[MAX_BUTTONS];
+			bool m_mouseClicked[MAX_BUTTONS];
 			double m_x, m_y;
 
 		public:
@@ -35,10 +39,13 @@ namespace MiniEngine
 
 			//these can be static, can be called Window::isKeyPressed without an instances
 			bool isKeyPressed(unsigned int keyCode) const;
+			bool isKeyTyped(unsigned int keyCode) const;
 			bool isMouseButtonPressed(unsigned int mouseButton) const;
+			bool isMouseButtonClicked(unsigned int mouseButton) const;
 			void getMousePosition(double& x, double& y) const;
 		private:
 			bool init();
+			friend static void windowResize(GLFWwindow* window, int width, int height);
 			friend static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 			friend static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 			friend static void cursorPositionCallback(GLFWwindow* window, double xpos, double ypos);

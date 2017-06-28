@@ -4,6 +4,7 @@ namespace MiniEngine
 {
 	namespace utils
 	{
+		//c style
 		std::string readFile(const std::string& fileName)
 		{
 			FILE* file;
@@ -11,11 +12,15 @@ namespace MiniEngine
 
 			fseek(file, 0, SEEK_END);
 			unsigned long length = ftell(file);
-			std::string result(length, '\0');
+			char* data = new char[length + 1];
+			memset(data, 0, length + 1);
 			fseek(file, 0, SEEK_SET);
-			
-			fread(&result[0], 1, length, file);
+
+			fread(data, 1, length, file);
 			fclose(file);
+
+			std::string result(data);
+			delete[] data;
 
 			return result;
 		}
@@ -25,7 +30,7 @@ namespace MiniEngine
 			//image format
 			FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 			//pointer to the image, once loaded
-			FIBITMAP *dib = nullptr;
+			FIBITMAP* dib = nullptr;
 
 			//check the file signature and deduce its format
 			fif = FreeImage_GetFileType(fileName, 0);
