@@ -56,8 +56,8 @@ namespace MiniEngine
 
 			glBindVertexArray(0);
 
-			m_ftAtlas = ftgl::texture_atlas_new(512, 512, 1);
-			m_ftFont = ftgl::texture_font_new_from_file(m_ftAtlas, 80, "arial.ttf");
+			m_ftAtlas = ftgl::texture_atlas_new(512, 512, 2);
+			m_ftFont = ftgl::texture_font_new_from_file(m_ftAtlas, 32, "arial.ttf");
 		}
 		//bigin end只在第一次submit时进行绑定
 		void BatchRenderer2D::begin()
@@ -174,7 +174,7 @@ namespace MiniEngine
 			int b = color.z * 255.0f;
 			int a = color.w * 255.0f;
 
-			unsigned int c = a << 24 | b << 16 | g << 8 | r;
+			unsigned int col = a << 24 | b << 16 | g << 8 | r;
 
 			float scaleX = 960.0f / 32.0f;
 			float scaleY = 540.0f / 18.0f;
@@ -205,25 +205,25 @@ namespace MiniEngine
 					m_pBuffer->vertex = *m_transformationBack * maths::vec3(x0, y0, 0.0f);
 					m_pBuffer->uv = maths::vec2(u0, v0);
 					m_pBuffer->tid = texSlot;
-					m_pBuffer->color = c;
+					m_pBuffer->color = col;
 					++m_pBuffer;
 
 					m_pBuffer->vertex = *m_transformationBack * maths::vec3(x0, y1, 0.0f);
 					m_pBuffer->uv = maths::vec2(u0, v1);
 					m_pBuffer->tid = texSlot;
-					m_pBuffer->color = c;
+					m_pBuffer->color = col;
 					++m_pBuffer;
 
 					m_pBuffer->vertex = *m_transformationBack * maths::vec3(x1, y1, 0.0f);
 					m_pBuffer->uv = maths::vec2(u1, v1);
 					m_pBuffer->tid = texSlot;
-					m_pBuffer->color = c;
+					m_pBuffer->color = col;
 					++m_pBuffer;
 
 					m_pBuffer->vertex = *m_transformationBack * maths::vec3(x1, y0, 0.0f);
 					m_pBuffer->uv = maths::vec2(u1, v0);
 					m_pBuffer->tid = texSlot;
-					m_pBuffer->color = c;
+					m_pBuffer->color = col;
 					++m_pBuffer;
 
 					m_indexCnt += 6;

@@ -8,7 +8,7 @@ namespace MiniEngine
 	{
 		class Label : public Renderable2D
 		{
-		private:
+		public:
 			std::string m_text;
 		public:
 			Label(const std::string& text, float x, float y, maths::vec4 color);

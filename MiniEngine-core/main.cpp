@@ -21,6 +21,7 @@
 #include "src/graphics/layers/group.h"
 
 #include "src/graphics/texture.h"
+#include "src/graphics/label.h"
 
 #include <time.h>
 
@@ -76,6 +77,13 @@ int main()
 		}
 	}
 
+	Group* g = new Group(maths::mat4::translate(maths::vec3(-15.5f, 7.5f, 0.0f)));
+//	Label* fps = new Label("", -15, 8, maths::vec4(1, 1, 1, 1));
+	Label* fps = new Label("", 0.5f, 0.5f, maths::vec4(1, 1, 1, 1));
+	g->add(new Sprite(0, 0, 4, 1.5f, maths::vec4(0.2f, 0.2f, 0.2f, 0.8)));
+	g->add(fps);
+
+	layer.add(g);
 
 	Timer timer;
 	double time = 0;
@@ -95,6 +103,7 @@ int main()
 		if (timer.elasped() - time > 1.0f)
 		{
 			time += 1.0f;
+			fps->m_text = std::to_string(frames) + "fps";
 			printf("%d fps\n", frames);
 			frames = 0;
 		}
