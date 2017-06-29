@@ -70,12 +70,11 @@ namespace MiniEngine
 		{
 			const maths::vec3& position = renderable2d->getPosition();
 			const maths::vec2& size = renderable2d->getSize();
-			const maths::vec4& color = renderable2d->getColor();
+			const unsigned int color = renderable2d->getColor();
 			const std::vector<maths::vec2>& uv = renderable2d->getUV();
 			//tid == 0 not to use texture
 			const GLuint tid = renderable2d->gettID();
 
-			unsigned int c = 0;
 			//texSlot == -1 means do not use texture
 			float texSlot = -1.0f;
 
@@ -106,41 +105,34 @@ namespace MiniEngine
 				}
 			}
 
-			int r = color.x * 255.0f;
-			int g = color.y * 255.0f;
-			int b = color.z * 255.0f;
-			int a = color.w * 255.0f;
-
-			c = a << 24 | b << 16 | g << 8 | r;
-
 			m_pBuffer->vertex = *m_transformationBack * position;
 			m_pBuffer->uv = uv[0];
 			m_pBuffer->tid = texSlot;
-			m_pBuffer->color = c;
+			m_pBuffer->color = color;
 			++m_pBuffer;
 
 			m_pBuffer->vertex = *m_transformationBack * maths::vec3(position.x, position.y + size.y, position.z);
 			m_pBuffer->uv = uv[1];
 			m_pBuffer->tid = texSlot;
-			m_pBuffer->color = c;
+			m_pBuffer->color = color;
 			++m_pBuffer;
 
 			m_pBuffer->vertex = *m_transformationBack * maths::vec3(position.x + size.x, position.y + size.y, position.z);
 			m_pBuffer->uv = uv[2];
 			m_pBuffer->tid = texSlot;
-			m_pBuffer->color = c;
+			m_pBuffer->color = color;
 			++m_pBuffer;
 
 			m_pBuffer->vertex = *m_transformationBack * maths::vec3(position.x + size.x, position.y, position.z);
 			m_pBuffer->uv = uv[3];
 			m_pBuffer->tid = texSlot;
-			m_pBuffer->color = c;
+			m_pBuffer->color = color;
 			++m_pBuffer;
 
 			m_indexCnt += 6;//通过六个索引绘制一个矩形
 		}
 
-		void BatchRenderer2D::drawString(const std::string& text, const maths::vec3& position, const maths::vec4& color)
+		void BatchRenderer2D::drawString(const std::string& text, const maths::vec3& position, unsigned int color)
 		{
 			using namespace ftgl;
 
@@ -168,13 +160,6 @@ namespace MiniEngine
 				m_textureSlots.push_back(m_ftAtlas->id);
 				texSlot = (float)(m_textureSlots.size() - 1);
 			}
-
-			int r = color.x * 255.0f;
-			int g = color.y * 255.0f;
-			int b = color.z * 255.0f;
-			int a = color.w * 255.0f;
-
-			unsigned int col = a << 24 | b << 16 | g << 8 | r;
 
 			float scaleX = 960.0f / 32.0f;
 			float scaleY = 540.0f / 18.0f;
@@ -205,25 +190,25 @@ namespace MiniEngine
 					m_pBuffer->vertex = *m_transformationBack * maths::vec3(x0, y0, 0.0f);
 					m_pBuffer->uv = maths::vec2(u0, v0);
 					m_pBuffer->tid = texSlot;
-					m_pBuffer->color = col;
+					m_pBuffer->color = color;
 					++m_pBuffer;
 
 					m_pBuffer->vertex = *m_transformationBack * maths::vec3(x0, y1, 0.0f);
 					m_pBuffer->uv = maths::vec2(u0, v1);
 					m_pBuffer->tid = texSlot;
-					m_pBuffer->color = col;
+					m_pBuffer->color = color;
 					++m_pBuffer;
 
 					m_pBuffer->vertex = *m_transformationBack * maths::vec3(x1, y1, 0.0f);
 					m_pBuffer->uv = maths::vec2(u1, v1);
 					m_pBuffer->tid = texSlot;
-					m_pBuffer->color = col;
+					m_pBuffer->color = color;
 					++m_pBuffer;
 
 					m_pBuffer->vertex = *m_transformationBack * maths::vec3(x1, y0, 0.0f);
 					m_pBuffer->uv = maths::vec2(u1, v0);
 					m_pBuffer->tid = texSlot;
-					m_pBuffer->color = col;
+					m_pBuffer->color = color;
 					++m_pBuffer;
 
 					m_indexCnt += 6;

@@ -102,10 +102,142 @@ namespace MiniEngine
 			return left.multiply(right);
 		}
 
-		//row save
 		vec4 mat4::getColumn(int index) const
 		{
+			/*row save
 			return vec4(elements[index + 0 * 4], elements[index + 1 * 4], elements[index + 2 * 4], elements[index + 3 * 4]);
+			*/
+			//column save
+			return vec4(elements[index], elements[index + 1], elements[index + 2], elements[index + 3]);
+		}
+
+		//求矩阵的逆
+		mat4& mat4::invert()
+		{
+			double inv[16];
+
+			inv[0] = elements[5] * elements[10] * elements[15] -
+				elements[5] * elements[11] * elements[14] -
+				elements[9] * elements[6] * elements[15] +
+				elements[9] * elements[7] * elements[14] +
+				elements[13] * elements[6] * elements[11] -
+				elements[13] * elements[7] * elements[10];
+
+			inv[4] = -elements[4] * elements[10] * elements[15] +
+				elements[4] * elements[11] * elements[14] +
+				elements[8] * elements[6] * elements[15] -
+				elements[8] * elements[7] * elements[14] -
+				elements[12] * elements[6] * elements[11] +
+				elements[12] * elements[7] * elements[10];
+
+			inv[8] = elements[4] * elements[9] * elements[15] -
+				elements[4] * elements[11] * elements[13] -
+				elements[8] * elements[5] * elements[15] +
+				elements[8] * elements[7] * elements[13] +
+				elements[12] * elements[5] * elements[11] -
+				elements[12] * elements[7] * elements[9];
+
+			inv[12] = -elements[4] * elements[9] * elements[14] +
+				elements[4] * elements[10] * elements[13] +
+				elements[8] * elements[5] * elements[14] -
+				elements[8] * elements[6] * elements[13] -
+				elements[12] * elements[5] * elements[10] +
+				elements[12] * elements[6] * elements[9];
+
+			inv[1] = -elements[1] * elements[10] * elements[15] +
+				elements[1] * elements[11] * elements[14] +
+				elements[9] * elements[2] * elements[15] -
+				elements[9] * elements[3] * elements[14] -
+				elements[13] * elements[2] * elements[11] +
+				elements[13] * elements[3] * elements[10];
+
+			inv[5] = elements[0] * elements[10] * elements[15] -
+				elements[0] * elements[11] * elements[14] -
+				elements[8] * elements[2] * elements[15] +
+				elements[8] * elements[3] * elements[14] +
+				elements[12] * elements[2] * elements[11] -
+				elements[12] * elements[3] * elements[10];
+
+			inv[9] = -elements[0] * elements[9] * elements[15] +
+				elements[0] * elements[11] * elements[13] +
+				elements[8] * elements[1] * elements[15] -
+				elements[8] * elements[3] * elements[13] -
+				elements[12] * elements[1] * elements[11] +
+				elements[12] * elements[3] * elements[9];
+
+			inv[13] = elements[0] * elements[9] * elements[14] -
+				elements[0] * elements[10] * elements[13] -
+				elements[8] * elements[1] * elements[14] +
+				elements[8] * elements[2] * elements[13] +
+				elements[12] * elements[1] * elements[10] -
+				elements[12] * elements[2] * elements[9];
+
+			inv[2] = elements[1] * elements[6] * elements[15] -
+				elements[1] * elements[7] * elements[14] -
+				elements[5] * elements[2] * elements[15] +
+				elements[5] * elements[3] * elements[14] +
+				elements[13] * elements[2] * elements[7] -
+				elements[13] * elements[3] * elements[6];
+
+			inv[6] = -elements[0] * elements[6] * elements[15] +
+				elements[0] * elements[7] * elements[14] +
+				elements[4] * elements[2] * elements[15] -
+				elements[4] * elements[3] * elements[14] -
+				elements[12] * elements[2] * elements[7] +
+				elements[12] * elements[3] * elements[6];
+
+			inv[10] = elements[0] * elements[5] * elements[15] -
+				elements[0] * elements[7] * elements[13] -
+				elements[4] * elements[1] * elements[15] +
+				elements[4] * elements[3] * elements[13] +
+				elements[12] * elements[1] * elements[7] -
+				elements[12] * elements[3] * elements[5];
+
+			inv[14] = -elements[0] * elements[5] * elements[14] +
+				elements[0] * elements[6] * elements[13] +
+				elements[4] * elements[1] * elements[14] -
+				elements[4] * elements[2] * elements[13] -
+				elements[12] * elements[1] * elements[6] +
+				elements[12] * elements[2] * elements[5];
+
+			inv[3] = -elements[1] * elements[6] * elements[11] +
+				elements[1] * elements[7] * elements[10] +
+				elements[5] * elements[2] * elements[11] -
+				elements[5] * elements[3] * elements[10] -
+				elements[9] * elements[2] * elements[7] +
+				elements[9] * elements[3] * elements[6];
+
+			inv[7] = elements[0] * elements[6] * elements[11] -
+				elements[0] * elements[7] * elements[10] -
+				elements[4] * elements[2] * elements[11] +
+				elements[4] * elements[3] * elements[10] +
+				elements[8] * elements[2] * elements[7] -
+				elements[8] * elements[3] * elements[6];
+
+			inv[11] = -elements[0] * elements[5] * elements[11] +
+				elements[0] * elements[7] * elements[9] +
+				elements[4] * elements[1] * elements[11] -
+				elements[4] * elements[3] * elements[9] -
+				elements[8] * elements[1] * elements[7] +
+				elements[8] * elements[3] * elements[5];
+
+			inv[15] = elements[0] * elements[5] * elements[10] -
+				elements[0] * elements[6] * elements[9] -
+				elements[4] * elements[1] * elements[10] +
+				elements[4] * elements[2] * elements[9] +
+				elements[8] * elements[1] * elements[6] -
+				elements[8] * elements[2] * elements[5];
+
+			double determinant = elements[0] * inv[0] + elements[1] * inv[4] + elements[2] * inv[8] + elements[3] * inv[12];
+			/*if (determinant == 0)
+				return false;// can not be inverted
+			*/
+			determinant = 1.0 / determinant;
+
+			for (int i = 0; i < 16; i++)
+				elements[i] = inv[i] * determinant;
+
+			return *this;
 		}
 
 		//长方体视景体，由该视景体观察xy平面

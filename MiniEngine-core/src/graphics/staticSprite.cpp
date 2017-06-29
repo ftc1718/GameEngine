@@ -5,7 +5,7 @@ namespace MiniEngine
 	namespace graphics
 	{
 		StaticSprite::StaticSprite(float x, float y, float width, float height, const maths::vec4& color, Shader& shader)
-			:Renderable2D(maths::vec3(x, y, 0), maths::vec2(width, height), color), m_shader(shader)
+			:Renderable2D(maths::vec3(x, y, 0), maths::vec2(width, height), 0xffff00ff), m_shader(shader)
 		{
 			m_pVertexArray = new VertexArray();
 			GLfloat vertices[] = 

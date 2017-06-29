@@ -55,7 +55,14 @@ namespace MiniEngine
 			*width = FreeImage_GetWidth(dib);
 			*height = FreeImage_GetHeight(dib);
 
-			return bits;
+			unsigned int bitsPerPixel = FreeImage_GetBPP(dib);
+			int size = *width * *height * (bitsPerPixel / 8);
+			BYTE* result = new BYTE[size];
+			memcpy(result, bits, size);
+
+			FreeImage_Unload(dib);
+
+			return result;
 		}
 	}
 }

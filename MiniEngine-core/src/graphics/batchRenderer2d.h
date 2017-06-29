@@ -47,7 +47,7 @@ namespace MiniEngine
 
 			void begin() override;
 			void submit(const Renderable2D* renderable2d) override;
-			void drawString(const std::string& text, const maths::vec3& position, const maths::vec4& color) override;
+			void drawString(const std::string& text, const maths::vec3& position, unsigned int color) override;
 			void end() override;
 			void flush() override;
 		private:

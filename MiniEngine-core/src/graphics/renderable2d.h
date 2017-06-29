@@ -28,13 +28,13 @@ namespace MiniEngine
 		protected:
 			maths::vec3 m_position;
 			maths::vec2 m_size;//Í¼Ôª´óÐ¡
-			maths::vec4 m_color;
+			unsigned int m_color;
 			std::vector<maths::vec2> m_uv;
 			Texture* m_pTexture;
 		protected:
 			Renderable2D() : m_pTexture(nullptr) { setUVDefaults(); }
 		public:
-			Renderable2D(maths::vec3 position, maths::vec2 size, maths::vec4 color)
+			Renderable2D(maths::vec3 position, maths::vec2 size, unsigned int color)
 				: m_position(position), m_size(size), m_color(color), m_pTexture(nullptr)
 			{ 
 				setUVDefaults();
@@ -47,9 +47,20 @@ namespace MiniEngine
 				renderer->submit(this);
 			}
 
+			void setColor(unsigned int color) { m_color = color; }
+			void setColor(const maths::vec4& color)
+			{
+				int r = color.x * 255.0f;
+				int g = color.y * 255.0f;
+				int b = color.z * 255.0f;
+				int a = color.w * 255.0f;
+
+				m_color = a << 24 | b << 16 | g << 8 | r;
+			}
+
 			inline const maths::vec3& getPosition() const { return m_position; }
 			inline const maths::vec2& getSize() const { return m_size; }
-			inline const maths::vec4& getColor() const { return m_color; }
+			inline const unsigned int getColor() const { return m_color; }
 			inline const std::vector<maths::vec2>& getUV() const { return m_uv; }
 			inline const GLuint gettID() const { return m_pTexture ? m_pTexture->getID() : 0; }
 		private:

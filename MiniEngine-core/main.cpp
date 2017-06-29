@@ -66,9 +66,12 @@ int main()
 		for (float x = -16.0f; x < 16.0f; x++)
 		{
 			//layer.add(new Sprite(x, y, 0.9f, 0.9f, maths::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
+			int r = rand() % 256;
+			//0xff(a)ff(b)ff(g)ff(r)
+			int col = 0xffff0000 | r;
 			if (rand() % 4 == 0)
 			{
-				layer.add(new Sprite(x, y, 0.9f, 0.9f, maths::vec4(rand() % 1000 / 1000.0f, 0, 1, 1)));
+				layer.add(new Sprite(x, y, 0.9f, 0.9f, col));
 			}
 			else
 			{
@@ -79,8 +82,8 @@ int main()
 
 	Group* g = new Group(maths::mat4::translate(maths::vec3(-15.5f, 7.5f, 0.0f)));
 //	Label* fps = new Label("", -15, 8, maths::vec4(1, 1, 1, 1));
-	Label* fps = new Label("", 0.5f, 0.5f, maths::vec4(1, 1, 1, 1));
-	g->add(new Sprite(0, 0, 4, 1.5f, maths::vec4(0.2f, 0.2f, 0.2f, 0.8)));
+	Label* fps = new Label("", 0.5f, 0.5f, 0xffffffff);
+	g->add(new Sprite(0, 0, 4, 1.5f, 0x505050DD));
 	g->add(fps);
 
 	layer.add(g);
@@ -90,12 +93,16 @@ int main()
 	unsigned int frames = 0;
 	while (!window.closed())
 	{
-		std::cout << window.getWidth() << ", " << window.getHeight() << std::endl;
 		window.clear();
 		double x, y;
 		window.getMousePosition(x, y);
 		shader.enable();
 		shader.setUniform2f("lightPosition", vec2((float)(x * 32.0f / window.getWidth() - 16.0f), (float)(9.0f - y * 18.0f / window.getHeight())));
+		if (window.isMouseButtonClicked(GLFW_MOUSE_BUTTON_LEFT))
+			std::cout << "left button" << std::endl;
+
+		if (window.isMouseButtonClicked(GLFW_MOUSE_BUTTON_LEFT))
+			std::cout << "Worked!" << std::endl;
 
 		layer.render();
 
