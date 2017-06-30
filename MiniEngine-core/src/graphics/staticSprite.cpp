@@ -26,6 +26,7 @@ namespace MiniEngine
 
 			m_pVertexArray->addBuffer(new Buffer(vertices, 4 * 3, 3), 0);
 			m_pVertexArray->addBuffer(new Buffer(colors, 4 * 4, 4), 1);
+			//delete Buffer in ~VertexArray()
 
 			GLushort indices[] =
 			{

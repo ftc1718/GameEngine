@@ -11,6 +11,11 @@ namespace MiniEngine
 		VertexArray::~VertexArray()
 		{
 			glDeleteVertexArrays(1, &m_arrayID);
+
+			for (size_t i = 0; i < m_buffers.size(); ++i)
+			{
+				delete m_buffers[i];
+			}
 		}
 
 		//index表示属性的索引
@@ -24,6 +29,8 @@ namespace MiniEngine
 
 			buffer->unbind();
 			unbind();
+
+			m_buffers.push_back(buffer);
 		}
 
 		void VertexArray::bind() const

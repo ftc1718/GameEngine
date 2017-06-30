@@ -14,6 +14,7 @@ namespace MiniEngine
 		{
 		private:
 			GLuint m_arrayID;
+			std::vector<Buffer*> m_buffers;
 		public:
 			VertexArray();
 			~VertexArray();

@@ -23,10 +23,7 @@
 #include "src/graphics/texture.h"
 #include "src/graphics/label.h"
 
-#include <time.h>
 
-
-#if 1
 
 /*Engine Test*/
 int main()
@@ -72,10 +69,12 @@ int main()
 			if (rand() % 4 == 0)
 			{
 				layer.add(new Sprite(x, y, 0.9f, 0.9f, col));
+				//delete Sprite in ~Layer()
 			}
 			else
 			{
 				layer.add(new Sprite(x, y, 0.9f, 0.9f, textures[rand() % 3]));
+				//delete Sprite in ~Layer()
 			}
 		}
 	}
@@ -91,24 +90,28 @@ int main()
 	Timer timer;
 	double time = 0;
 	unsigned int frames = 0;
+	float t = 0.0f;
 	while (!window.closed())
 	{
+		t += 0.01f;
 		window.clear();
 		double x, y;
 		window.getMousePosition(x, y);
 		shader.enable();
 		shader.setUniform2f("lightPosition", vec2((float)(x * 32.0f / window.getWidth() - 16.0f), (float)(9.0f - y * 18.0f / window.getHeight())));
-		if (window.isMouseButtonClicked(GLFW_MOUSE_BUTTON_LEFT))
-			std::cout << "left button" << std::endl;
-
-		if (window.isMouseButtonClicked(GLFW_MOUSE_BUTTON_LEFT))
-			std::cout << "Worked!" << std::endl;
 
 		layer.render();
 
+		const std::vector<Renderable2D*> renderables = layer.getRenderables();
+		for (int i = 0; i < renderables.size(); ++i)
+		{
+			float c = sin(t) / 2 + 0.5f;
+			renderables[i]->setColor(maths::vec4(c, 0, 1, 1));
+		}
+
 		window.update();
 		frames++;
-		if (timer.elasped() - time > 1.0f)
+		if (timer.elapsed() - time > 1.0f)
 		{
 			time += 1.0f;
 			fps->m_text = std::to_string(frames) + "fps";
@@ -123,71 +126,3 @@ int main()
 	}
 	return 0;
 }
-
-#else
-int main()
-{
-	const char* filename = "test.png";
-	//image format
-	FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
-	//pointer to the image, once loaded
-	FIBITMAP *dib(0);
-	//pointer to the image data
-	BYTE* bits(0);
-	//image width and height
-	unsigned int width(0), height(0);
-	//OpenGL's image ID to map to
-	GLuint gl_texID;
-
-	//check the file signature and deduce its format
-	fif = FreeImage_GetFileType(filename, 0);
-	//if still unknown, try to guess the file format from the file extension
-	if (fif == FIF_UNKNOWN)
-		fif = FreeImage_GetFIFFromFilename(filename);
-	//if still unkown, return failure
-	if (fif == FIF_UNKNOWN)
-		return false;
-
-	//check that the plugin has reading capabilities and load the file
-	if (FreeImage_FIFSupportsReading(fif))
-		dib = FreeImage_Load(fif, filename);
-	//if the image failed to load, return failure
-	if (!dib)
-		return false;
-
-	//retrieve the image data
-	bits = FreeImage_GetBits(dib);
-	//get the image width and height
-	width = FreeImage_GetWidth(dib);
-	height = FreeImage_GetHeight(dib);
-
-	unsigned int bitsPerPixel = FreeImage_GetBPP(dib);
-	unsigned int pitch = FreeImage_GetPitch(dib);
-	//if this somehow one of these failed (they shouldn't), return failure
-	if ((bits == 0) || (width == 0) || (height == 0))
-		return false;
-
-	FreeImage_FlipVertical(dib);
-	for (int y = height; y > 0; y--)
-	{
-		BYTE *pixel = (BYTE*)bits;
-		for (int x = 0; x < width; x++)
-		{
-			std::cout << +pixel[FI_RGBA_RED] << " " << +pixel[FI_RGBA_GREEN] << " " << +pixel[FI_RGBA_BLUE] << std::endl;
-			pixel += 3;
-		}
-		// next line
-		bits += pitch;
-	}
-
-	/*for (int i = 0; i < width * height * 3; i += 3)
-	{
-		//+ promotes x to a type printable as a number, regardless of type
-		std::cout << +bits[i + 2] << " " << +bits[i + 1] << " " << +bits[i] << std::endl;
-	}*/
-
-	FreeImage_Unload(dib);
-
-	return 0;
-}
-#endif
