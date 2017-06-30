@@ -3,9 +3,9 @@
 #include <cstddef>
 #include "renderer2d.h"
 #include "renderable2d.h"
+
 #include "buffers/indexBuffer.h"
 
-#include "../../ext/freetype-gl/freetype-gl.h"
 
 namespace MiniEngine
 {
@@ -39,15 +39,13 @@ namespace MiniEngine
 			GLuint m_indexCnt;
 
 			std::vector<GLuint> m_textureSlots;
-			ftgl::texture_atlas_t* m_ftAtlas;
-			ftgl::texture_font_t* m_ftFont;
 		public:
 			BatchRenderer2D();
 			~BatchRenderer2D();
 
 			void begin() override;
 			void submit(const Renderable2D* renderable2d) override;
-			void drawString(const std::string& text, const maths::vec3& position, unsigned int color) override;
+			void drawString(const std::string& text, const maths::vec3& position, const Font& font, unsigned int color) override;
 			void end() override;
 			void flush() override;
 		private:

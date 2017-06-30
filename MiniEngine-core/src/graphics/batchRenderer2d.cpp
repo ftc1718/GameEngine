@@ -56,8 +56,6 @@ namespace MiniEngine
 
 			glBindVertexArray(0);
 
-			m_ftAtlas = ftgl::texture_atlas_new(512, 512, 2);
-			m_ftFont = ftgl::texture_font_new_from_file(m_ftAtlas, 32, "arial.ttf");
 		}
 		//bigin end只在第一次submit时进行绑定
 		void BatchRenderer2D::begin()
@@ -132,7 +130,7 @@ namespace MiniEngine
 			m_indexCnt += 6;//通过六个索引绘制一个矩形
 		}
 
-		void BatchRenderer2D::drawString(const std::string& text, const maths::vec3& position, unsigned int color)
+		void BatchRenderer2D::drawString(const std::string& text, const maths::vec3& position, const Font& font, unsigned int color)
 		{
 			using namespace ftgl;
 
@@ -140,7 +138,7 @@ namespace MiniEngine
 			bool found = false;
 			for (int i = 0; i != m_textureSlots.size(); ++i)
 			{
-				if (m_textureSlots[i] == m_ftAtlas->id)
+				if (m_textureSlots[i] == font.getID())
 				{
 					texSlot = (float)i;
 					found = true;
@@ -157,7 +155,7 @@ namespace MiniEngine
 					begin();
 					m_textureSlots.clear();
 				}
-				m_textureSlots.push_back(m_ftAtlas->id);
+				m_textureSlots.push_back(font.getID());
 				texSlot = (float)(m_textureSlots.size() - 1);
 			}
 
@@ -166,10 +164,10 @@ namespace MiniEngine
 
 			float x = position.x;
 
-			for (int i = 0; i < text.length(); ++i)
+			for (int i = 0; i != text.length(); ++i)
 			{
 				char c = text[i];
-				texture_glyph_t* glyph = texture_font_get_glyph(m_ftFont, c);
+				texture_glyph_t* glyph = texture_font_get_glyph(font.getFTFont(), c);
 				if (glyph)
 				{
 					if (i > 0)

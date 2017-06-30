@@ -264,6 +264,12 @@
     <ClCompile Include="src\graphics\staticSprite.cpp">
       <Filter>源文件\graphics\renderables</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\font.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\fontManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ext\freetype\include\ft2build.h">
@@ -373,6 +379,12 @@
     </ClInclude>
     <ClInclude Include="src\graphics\Sprite.h">
       <Filter>头文件\graphics\renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\font.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\fontManager.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

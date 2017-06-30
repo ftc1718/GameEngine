@@ -23,6 +23,8 @@
 #include "src/graphics/texture.h"
 #include "src/graphics/label.h"
 
+#include "src/graphics/fontManager.h"
+
 
 
 /*Engine Test*/
@@ -79,9 +81,11 @@ int main()
 		}
 	}
 
+	Font* font = new Font("Arial", "arial.ttf", 80);
+	FontManager::add(font);
 	Group* g = new Group(maths::mat4::translate(maths::vec3(-15.5f, 7.5f, 0.0f)));
 //	Label* fps = new Label("", -15, 8, maths::vec4(1, 1, 1, 1));
-	Label* fps = new Label("", 0.5f, 0.5f, 0xffffffff);
+	Label* fps = new Label("", 0.5f, 0.5f, FontManager::get("Arial", 80), 0xffffffff);
 	g->add(new Sprite(0, 0, 4, 1.5f, 0x505050DD));
 	g->add(fps);
 
@@ -124,5 +128,7 @@ int main()
 	{
 		delete textures[i];
 	}
+
+	FontManager::clean();
 	return 0;
 }

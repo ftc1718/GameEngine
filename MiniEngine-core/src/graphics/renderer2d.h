@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "font.h"
 #include "../maths/mat4.h"
 
 namespace MiniEngine
@@ -40,7 +41,7 @@ namespace MiniEngine
 			
 			virtual void begin() = 0;
 			virtual void submit(const Renderable2D* renderable2d) = 0;
-			virtual void drawString(const std::string& text, const maths::vec3& position, unsigned int color) = 0;
+			virtual void drawString(const std::string& text, const maths::vec3& position, const Font& font, unsigned int color) = 0;
 			virtual void end() = 0;
 			virtual void flush() = 0;
 		};
