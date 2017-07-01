@@ -81,11 +81,9 @@ int main()
 		}
 	}
 
-	Font* font = new Font("Arial", "arial.ttf", 80);
-	FontManager::add(font);
 	Group* g = new Group(maths::mat4::translate(maths::vec3(-15.5f, 7.5f, 0.0f)));
 //	Label* fps = new Label("", -15, 8, maths::vec4(1, 1, 1, 1));
-	Label* fps = new Label("", 0.5f, 0.5f, FontManager::get("Arial", 80), 0xffffffff);
+	Label* fps = new Label("", 0.5f, 0.5f, "Arial", 80, 0xffffffff);
 	g->add(new Sprite(0, 0, 4, 1.5f, 0x505050DD));
 	g->add(fps);
 
@@ -107,7 +105,7 @@ int main()
 		layer.render();
 
 		const std::vector<Renderable2D*> renderables = layer.getRenderables();
-		for (int i = 0; i < renderables.size(); ++i)
+		for (int i = 0; i != renderables.size(); ++i)
 		{
 			float c = sin(t) / 2 + 0.5f;
 			renderables[i]->setColor(maths::vec4(c, 0, 1, 1));

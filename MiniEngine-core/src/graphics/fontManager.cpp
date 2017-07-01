@@ -20,7 +20,7 @@ namespace MiniEngine
 					return font;
 				}
 			}
-			return nullptr;//can return a default font
+			return nullptr;//return a default font in label
 		}
 
 
@@ -33,7 +33,7 @@ namespace MiniEngine
 					return font;
 				}
 			}
-			return nullptr;//can return a default font
+			return nullptr;//return a default font in label
 		}
 
 		void FontManager::clean()
