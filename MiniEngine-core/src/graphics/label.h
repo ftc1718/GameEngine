@@ -13,6 +13,7 @@ namespace MiniEngine
 			Font* m_pFont;
 			std::string m_text;
 		public:
+			Label(const std::string& text, float x, float y, unsigned int color);//use default font
 			Label(const std::string& text, float x, float y, Font* font, unsigned int color);
 			Label(const std::string& text, float x, float y, const std::string& fontName, unsigned int color);
 			Label(const std::string& text, float x, float y, const std::string& fontName, unsigned int size, unsigned int color);

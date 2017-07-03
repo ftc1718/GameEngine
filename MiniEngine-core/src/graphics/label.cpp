@@ -4,6 +4,11 @@ namespace MiniEngine
 {
 	namespace graphics
 	{
+		Label::Label(const std::string& text, float x, float y, unsigned int color)
+			: Renderable2D(maths::vec3(x, y, 0.0f), maths::vec2(), color), m_text(text), m_pFont(FontManager::get("Arial"))
+		{
+
+		}
 		Label::Label(const std::string& text, float x, float y, Font* font, unsigned int color)
 			: Renderable2D(maths::vec3(x, y, 0.0f), maths::vec2(), color), m_text(text), m_pFont(font)
 		{

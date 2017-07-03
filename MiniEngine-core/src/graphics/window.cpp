@@ -39,6 +39,7 @@ namespace MiniEngine
 
 		Window::~Window()
 		{
+			FontManager::clean();
 			glfwTerminate();
 		}
 
