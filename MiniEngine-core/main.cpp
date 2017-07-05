@@ -1,4 +1,3 @@
-#if 0
 #include <iostream>
 #include <vector>
 #include "src/utility/timer.h"
@@ -26,6 +25,8 @@
 
 #include "src/graphics/fontManager.h"
 
+#include "src/audio/soundManager.h"
+
 
 
 /*Engine Test*/
@@ -33,6 +34,7 @@ int main()
 {
 	using namespace MiniEngine;
 	using namespace graphics;
+	using namespace audio;
 	using namespace maths;
 
 	Window window("Engine", 960, 540);
@@ -82,6 +84,7 @@ int main()
 		}
 	}
 
+
 //	FontManager::add(new Font("SourceSansPro", "SourceSansPro-Light.ttf", 50));
 	Group* g = new Group(maths::mat4::translate(maths::vec3(-15.5f, 7.5f, 0.0f)));
 //	Label* fps = new Label("", -15, 8, maths::vec4(1, 1, 1, 1));
@@ -91,6 +94,13 @@ int main()
 
 	layer.add(g);
 
+//	SoundManager::add(new Sound("test", "test.wav"));
+	SoundManager::add(new Sound("song", "song.wav"));
+//	SoundManager::add(new Sound("iphone", "iphone.wav"));
+//	SoundManager::get("iphone")->play(true);
+//	SoundManager::get("test")->play();
+	gc_float32 volume = 0.5f;
+//	SoundManager::get("test")->setVolume(volume);
 	Timer timer;
 	double time = 0;
 	unsigned int frames = 0;
@@ -113,6 +123,36 @@ int main()
 			renderables[i]->setColor(maths::vec4(c, 0, 1, 1));
 		}
 
+		if (window.isKeyTyped(GLFW_KEY_P))
+		{
+			SoundManager::get("song")->play();
+		}
+
+		if (window.isKeyTyped(GLFW_KEY_S))
+		{
+			SoundManager::get("song")->stop();
+		}
+
+		if (window.isKeyTyped(GLFW_KEY_R))
+		{
+			SoundManager::get("song")->resume();
+		}
+		
+		if (window.isKeyTyped(GLFW_KEY_UP))
+		{
+			volume += 0.1f;
+			SoundManager::get("song")->setVolume(volume);
+		}
+		
+		if (window.isKeyTyped(GLFW_KEY_DOWN))
+		{
+			volume -= 0.1f;
+			if (volume < 0.0f)
+				volume = 0.0f;
+			SoundManager::get("song")->setVolume(volume);
+		}
+
+		SoundManager::update();
 		window.update();
 		frames++;
 		if (timer.elapsed() - time > 1.0f)
@@ -131,8 +171,9 @@ int main()
 
 	return 0;
 }
-#endif
 
+
+#if 0
 #include "gorilla/ga.h"
 #include "gorilla/gau.h"
 
@@ -152,7 +193,7 @@ int main(int argc, char** argv)
 	ga_Handle* handle;
 	gau_SampleSourceLoop* loopSrc = 0;
 	gau_SampleSourceLoop** pLoopSrc = &loopSrc;
-	gc_int32 loop = 0;
+	gc_int32 loop = 1;
 	gc_int32 quit = 0;
 
 	/* Initialize library + manager */
@@ -166,7 +207,7 @@ int main(int argc, char** argv)
 	sound = gau_load_sound_file("test.wav", "wav");
 	handle = gau_create_handle_sound(mixer, sound, &setFlagAndDestroyOnFinish, &quit, pLoopSrc);
 	ga_handle_play(handle);
-
+	
 	/* Bounded mix/queue/dispatch loop */
 	while (!quit)
 	{
@@ -184,4 +225,4 @@ int main(int argc, char** argv)
 
 	return 0;
 }
-
+#endif

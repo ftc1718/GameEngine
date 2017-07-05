@@ -21,6 +21,7 @@ namespace MiniEngine
 
 			//default font
 			FontManager::add((new Font("Arial", "arial.ttf", 32)));
+			audio::SoundManager::init();
 
 			for (int i = 0; i < MAX_KEYS; ++i)
 			{
@@ -40,6 +41,7 @@ namespace MiniEngine
 		Window::~Window()
 		{
 			FontManager::clean();
+			audio::SoundManager::clean();
 			glfwTerminate();
 		}
 
@@ -115,6 +117,8 @@ namespace MiniEngine
 			}
 			glfwPollEvents();
 			glfwSwapBuffers(m_pWindow);
+
+//			audio::SoundManager::update();
 		}
 
 		bool Window::isKeyPressed(unsigned int keyCode) const

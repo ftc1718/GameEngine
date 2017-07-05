@@ -18,6 +18,7 @@ namespace MiniEngine
 			std::string m_fileName;
 		public:
 			Font(const std::string& fontName, const std::string& fileName, unsigned int size);
+			~Font();
 
 			inline ftgl::texture_font_t* getFTFont() const { return m_pFTFont; }
 
