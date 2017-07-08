@@ -73,6 +73,12 @@
     <Filter Include="shaders">
       <UniqueIdentifier>{522b3018-62a0-4154-9670-cf8a493312b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\audio">
+      <UniqueIdentifier>{67ddfd57-504c-4f96-ac22-dcd06d27b4e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\audio">
+      <UniqueIdentifier>{bdf90b87-059e-48e8-8192-c58ef47c5112}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -219,9 +225,6 @@
     <ClCompile Include="src\graphics\shaders.cpp">
       <Filter>源文件\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\simple2dRenderer.cpp">
-      <Filter>源文件\graphics</Filter>
-    </ClCompile>
     <ClCompile Include="src\graphics\texture.cpp">
       <Filter>源文件\graphics</Filter>
     </ClCompile>
@@ -252,32 +255,29 @@
     <ClCompile Include="src\graphics\layers\group.cpp">
       <Filter>源文件\graphics\layers</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\layers\tileLayer.cpp">
-      <Filter>源文件\graphics\layers</Filter>
-    </ClCompile>
     <ClCompile Include="src\graphics\label.cpp">
       <Filter>源文件\graphics\renderables</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\Sprite.cpp">
       <Filter>源文件\graphics\renderables</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\staticSprite.cpp">
-      <Filter>源文件\graphics\renderables</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\font.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\fontManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\audio\soundManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\audio\sound.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="tileLayer.cpp">
+      <Filter>源文件\graphics\layers</Filter>
     </ClCompile>
     <ClCompile Include="src\utility\stringUtils.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\audio\soundManager.cpp">
+      <Filter>源文件\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\audio\sound.cpp">
+      <Filter>源文件\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\fontManager.cpp">
+      <Filter>源文件\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\font.cpp">
+      <Filter>源文件\graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -329,9 +329,6 @@
     <ClInclude Include="src\graphics\renderer2d.h">
       <Filter>头文件\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\simple2dRenderer.h">
-      <Filter>头文件\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="src\graphics\window.h">
       <Filter>头文件\graphics</Filter>
     </ClInclude>
@@ -371,9 +368,6 @@
     <ClInclude Include="src\graphics\layers\layer.h">
       <Filter>头文件\graphics\layers</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\layers\tileLayer.h">
-      <Filter>头文件\graphics\layers</Filter>
-    </ClInclude>
     <ClInclude Include="src\graphics\layers\group.h">
       <Filter>头文件\graphics\layers</Filter>
     </ClInclude>
@@ -383,26 +377,26 @@
     <ClInclude Include="src\graphics\renderable2d.h">
       <Filter>头文件\graphics\renderables</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\staticSprite.h">
-      <Filter>头文件\graphics\renderables</Filter>
-    </ClInclude>
     <ClInclude Include="src\graphics\Sprite.h">
       <Filter>头文件\graphics\renderables</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\font.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\fontManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\audio\soundManager.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="tileLayer.h">
+      <Filter>头文件\graphics\layers</Filter>
     </ClInclude>
     <ClInclude Include="src\audio\sound.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\audio\soundManager.h">
+      <Filter>头文件\audio</Filter>
     </ClInclude>
     <ClInclude Include="src\utility\stringUtils.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\fontManager.h">
+      <Filter>头文件\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\font.h">
+      <Filter>头文件\graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

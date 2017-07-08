@@ -118,7 +118,7 @@ namespace MiniEngine
 			glfwPollEvents();
 			glfwSwapBuffers(m_pWindow);
 
-//			audio::SoundManager::update();
+			audio::SoundManager::update();
 		}
 
 		bool Window::isKeyPressed(unsigned int keyCode) const

@@ -13,6 +13,8 @@ namespace MiniEngine
 	{
 //单次可渲染最多物体		
 #define RENDERER_MAX_SPRITES   60000
+//单次渲染最多纹理
+#define RENDERER_MAX_TEXTURES  32
 //顶点数据大小
 #define RENDERER_VERTEX_SIZE   sizeof(VertexData)
 //物体大小（矩形包括四个顶点）

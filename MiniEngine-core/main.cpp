@@ -11,13 +11,11 @@
 #include "src/graphics/buffers/vertexArray.h"
 
 #include "src/graphics/renderer2d.h"
-#include "src/graphics/simple2dRenderer.h"
 #include "src/graphics/batchRenderer2d.h"
 
-#include "src/graphics/staticSprite.h"
 #include "src/graphics/Sprite.h"
 
-#include "src/graphics/layers/tileLayer.h"
+#include "tileLayer.h"
 #include "src/graphics/layers/group.h"
 
 #include "src/graphics/texture.h"
@@ -152,7 +150,6 @@ int main()
 			SoundManager::get("song")->setVolume(volume);
 		}
 
-		SoundManager::update();
 		window.update();
 		frames++;
 		if (timer.elapsed() - time > 1.0f)

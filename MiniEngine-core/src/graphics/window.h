@@ -47,10 +47,10 @@ namespace MiniEngine
 			void getMousePosition(double& x, double& y) const;
 		private:
 			bool init();
-			friend static void windowResize(GLFWwindow* window, int width, int height);
-			friend static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-			friend static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
-			friend static void cursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
+			friend void windowResize(GLFWwindow* window, int width, int height);
+			friend void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+			friend void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+			friend void cursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
 		};
 	}
 }

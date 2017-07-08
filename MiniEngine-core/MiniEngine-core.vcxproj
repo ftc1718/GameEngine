@@ -192,11 +192,9 @@
     <ClCompile Include="src\graphics\label.cpp" />
     <ClCompile Include="src\graphics\layers\group.cpp" />
     <ClCompile Include="src\graphics\layers\layer.cpp" />
-    <ClCompile Include="src\graphics\layers\tileLayer.cpp" />
+    <ClCompile Include="tileLayer.cpp" />
     <ClCompile Include="src\graphics\shaders.cpp" />
-    <ClCompile Include="src\graphics\simple2dRenderer.cpp" />
     <ClCompile Include="src\graphics\Sprite.cpp" />
-    <ClCompile Include="src\graphics\staticSprite.cpp" />
     <ClCompile Include="src\graphics\texture.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
     <ClCompile Include="src\maths\mat4.cpp" />
@@ -230,13 +228,11 @@
     <ClInclude Include="src\graphics\fontManager.h" />
     <ClInclude Include="src\graphics\layers\group.h" />
     <ClInclude Include="src\graphics\layers\layer.h" />
-    <ClInclude Include="src\graphics\layers\tileLayer.h" />
+    <ClInclude Include="tileLayer.h" />
     <ClInclude Include="src\graphics\renderable2d.h" />
     <ClInclude Include="src\graphics\renderer2d.h" />
     <ClInclude Include="src\graphics\shaders.h" />
-    <ClInclude Include="src\graphics\simple2dRenderer.h" />
     <ClInclude Include="src\graphics\Sprite.h" />
-    <ClInclude Include="src\graphics\staticSprite.h" />
     <ClInclude Include="src\graphics\texture.h" />
     <ClInclude Include="src\graphics\window.h" />
     <ClInclude Include="src\graphics\label.h" />

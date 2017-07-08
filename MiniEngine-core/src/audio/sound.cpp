@@ -7,7 +7,7 @@ namespace MiniEngine
 {
 	namespace audio
 	{
-		void setFlagAndDestroyOnFinish(ga_Handle* in_handle, void* in_context);
+		static void setFlagAndDestroyOnFinish(ga_Handle* in_handle, void* in_context);
 
 		Sound::Sound(const std::string& soundName, const std::string& fileName)
 			: m_soundName(soundName), m_fileName(fileName), m_isPlaying(false)
@@ -58,11 +58,10 @@ namespace MiniEngine
 
 		void Sound::resume()
 		{
-		/*	if (!m_isPlaying)
+			if (m_isPlaying)
 			{
-				std::cout << "No sound pause!" << std::endl;
 				return;
-			}*/
+			}
 
 			ga_handle_play(m_handle);
 			m_isPlaying = true;

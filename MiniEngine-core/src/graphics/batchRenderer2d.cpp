@@ -91,7 +91,7 @@ namespace MiniEngine
 
 				if (!found)
 				{
-					if (m_textureSlots.size() >= 32)
+					if (m_textureSlots.size() >= RENDERER_MAX_TEXTURES)
 					{
 						end();
 						flush();
@@ -148,7 +148,7 @@ namespace MiniEngine
 
 			if (!found)
 			{
-				if (m_textureSlots.size() >= 32)
+				if (m_textureSlots.size() >= RENDERER_MAX_TEXTURES)
 				{
 					end();
 					flush();
