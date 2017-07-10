@@ -1,6 +1,6 @@
 #include "fontManager.h"
 
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{
@@ -11,7 +11,7 @@ namespace Indie
 			m_fontsVector.push_back(font);
 		}
 
-		Indie::graphics::Font* FontManager::get()
+		Font* FontManager::get()
 		{
 			return m_fontsVector[0];
 		}

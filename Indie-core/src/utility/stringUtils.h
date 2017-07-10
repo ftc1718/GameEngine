@@ -4,7 +4,7 @@
 #include <vector>
 #include <sstream>
 
-namespace Indie
+namespace indie
 {
 	std::vector<std::string> splitString(const std::string& str, char delimeter);
 }

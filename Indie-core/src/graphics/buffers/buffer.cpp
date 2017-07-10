@@ -1,6 +1,6 @@
 #include "buffer.h"
 
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{

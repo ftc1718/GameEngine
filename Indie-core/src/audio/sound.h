@@ -4,7 +4,7 @@
 #include "gorilla/ga.h"
 #include "gorilla/gau.h"
 
-namespace Indie
+namespace indie
 {
 	namespace audio
 	{

@@ -1,6 +1,6 @@
 #include "font.h"
 
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{
@@ -16,5 +16,11 @@ namespace Indie
 			ftgl::texture_font_delete(m_pFTFont);
 			ftgl::texture_atlas_delete(m_pFTAtlas);
 		}
+
+		void Font::setScale(float x, float y)
+		{
+			m_scale = maths::vec2(x, y);
+		}
+
 	}
 }

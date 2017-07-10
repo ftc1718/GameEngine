@@ -1,6 +1,6 @@
 #pragma once
 
-#define WINDOWS_TIMER 1
+#define WINDOWS_TIMER 0
 
 #if WINDOWS_TIMER
 #include <Windows.h>
@@ -8,7 +8,7 @@
 #include <chrono>
 #endif
 
-namespace Indie 
+namespace indie 
 {
 
 #if WINDOWS_TIMER

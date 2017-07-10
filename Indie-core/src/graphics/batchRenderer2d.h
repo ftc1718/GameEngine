@@ -7,7 +7,7 @@
 #include "buffers/indexBuffer.h"
 
 
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{

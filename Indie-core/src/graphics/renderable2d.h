@@ -11,7 +11,7 @@
 #include "../maths/vec3.h"
 #include "../maths/vec4.h"
 
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{
@@ -59,6 +59,9 @@ namespace Indie
 			}
 
 			inline const maths::vec3& getPosition() const { return m_position; }
+			inline const void setPosition(const maths::vec3& position) { m_position = position; }
+			inline const void setPosition(float x, float y) { m_position = maths::vec3(x, y, 0.0f); }
+
 			inline const maths::vec2& getSize() const { return m_size; }
 			inline const unsigned int getColor() const { return m_color; }
 			inline const std::vector<maths::vec2>& getUV() const { return m_uv; }

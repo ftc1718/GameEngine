@@ -1,6 +1,6 @@
 #include "group.h"
 
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{

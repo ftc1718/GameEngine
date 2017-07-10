@@ -1,7 +1,7 @@
 #include "window.h"
 #include <iostream>
 
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{
@@ -20,7 +20,7 @@ namespace Indie
 			}
 
 			//default font
-			FontManager::add((new Font("Arial", "arial.ttf", 32)));
+			FontManager::add((new Font("SourceSansPro-Light", "SourceSansPro-Light.ttf", 32)));
 			audio::SoundManager::init();
 
 			for (int i = 0; i < MAX_KEYS; ++i)

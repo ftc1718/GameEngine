@@ -1,6 +1,6 @@
 #include "texture.h"
 
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{

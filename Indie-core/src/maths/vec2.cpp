@@ -1,6 +1,6 @@
 #include "vec2.h"
 
-namespace Indie
+namespace indie
 {
 	namespace maths
 	{

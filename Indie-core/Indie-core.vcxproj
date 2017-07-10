@@ -138,6 +138,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="examples\game.cpp" />
+    <ClCompile Include="examples\gameMain.cpp" />
     <ClCompile Include="ext\freetype-gl\platform.c" />
     <ClCompile Include="ext\freetype-gl\texture-atlas.c" />
     <ClCompile Include="ext\freetype-gl\texture-font.c" />
@@ -206,6 +208,7 @@
     <ClCompile Include="src\utility\stringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="examples\game.h" />
     <ClInclude Include="ext\freetype-gl\freetype-gl.h" />
     <ClInclude Include="ext\freetype-gl\opengl.h" />
     <ClInclude Include="ext\freetype-gl\platform.h" />
@@ -229,6 +232,7 @@
     <ClInclude Include="src\graphics\fontManager.h" />
     <ClInclude Include="src\graphics\layers\group.h" />
     <ClInclude Include="src\graphics\layers\layer.h" />
+    <ClInclude Include="src\indie.h" />
     <ClInclude Include="tileLayer.h" />
     <ClInclude Include="src\graphics\renderable2d.h" />
     <ClInclude Include="src\graphics\renderer2d.h" />
@@ -248,8 +252,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\fragmentShader.shader" />
-    <None Include="src\shaders\fragmentShader.tutorial" />
-    <None Include="src\shaders\vertexShader.tutorial" />
     <None Include="src\shaders\vertexShader.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

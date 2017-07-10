@@ -1,6 +1,6 @@
 #include "soundManager.h"
 
-namespace Indie
+namespace indie
 {
 	namespace audio
 	{

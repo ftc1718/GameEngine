@@ -4,7 +4,7 @@
 #include "shaders.h"
 #include "../utility/fileUtils.h"
 
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{

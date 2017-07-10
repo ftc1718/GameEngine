@@ -1,6 +1,6 @@
 #include "fileUtils.h"
 
-namespace Indie
+namespace indie
 {
 	namespace utils
 	{

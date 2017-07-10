@@ -5,7 +5,7 @@
 #include "../renderable2d.h"
 #include "../renderer2d.h"
 
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{
@@ -16,9 +16,8 @@ namespace Indie
 			Shader* m_pShader;
 			std::vector<Renderable2D*> m_renderables;
 			maths::mat4 m_projectionMatrix;
-		protected:
-			Layer(Renderer2D* renderer, Shader* shader, maths::mat4 projectionMatrix);
 		public:
+			Layer(Renderer2D* renderer, Shader* shader, maths::mat4 projectionMatrix);
 			virtual ~Layer();
 			virtual void add(Renderable2D* renderable);
 			virtual void render();

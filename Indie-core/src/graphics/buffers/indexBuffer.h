@@ -1,7 +1,7 @@
 #pragma once
 
 #include <GL/glew.h>
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{

@@ -3,7 +3,7 @@
 #include <vector>
 #include "font.h"
 
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{

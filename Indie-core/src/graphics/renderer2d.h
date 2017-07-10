@@ -4,7 +4,7 @@
 #include "font.h"
 #include "../maths/mat4.h"
 
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{

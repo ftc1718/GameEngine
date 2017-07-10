@@ -3,7 +3,7 @@
 #include <vector>
 #include "sound.h"
 
-namespace Indie
+namespace indie
 {
 	namespace audio
 	{

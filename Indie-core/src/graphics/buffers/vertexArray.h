@@ -6,7 +6,7 @@
 
 //每一个需要渲染的物体包含的buffer（顶点buffer，颜色buffer）
 
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{

@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-namespace Indie
+namespace indie
 {
 	namespace maths
 	{

@@ -1,6 +1,6 @@
 #include "Sprite.h"
 
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{

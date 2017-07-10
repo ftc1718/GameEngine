@@ -4,7 +4,7 @@
 #include <FreeImage.h>
 #include <GL/glew.h>
 
-namespace Indie
+namespace indie
 {
 	namespace utils
 	{

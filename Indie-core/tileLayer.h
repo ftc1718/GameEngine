@@ -4,9 +4,9 @@
 #include "src/graphics/batchRenderer2d.h"
 
 
-class TileLayer : public Indie::graphics::Layer
+class TileLayer : public indie::graphics::Layer
 {
 public:
-	TileLayer(Indie::graphics::Shader* shader);
+	TileLayer(indie::graphics::Shader* shader);
 	~TileLayer();
 };

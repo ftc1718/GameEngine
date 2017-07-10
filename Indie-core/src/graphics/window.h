@@ -5,7 +5,7 @@
 #include "fontManager.h"
 #include "../audio/soundManager.h"
 
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{

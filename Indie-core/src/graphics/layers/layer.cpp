@@ -1,6 +1,6 @@
 #include "layer.h"
 
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{
@@ -10,6 +10,16 @@ namespace Indie
 			m_pShader->enable();
 			//构造时设定投影矩阵，不用每一帧重新渲染
 			m_pShader->setUniformMat4("projectionMatrix",m_projectionMatrix);
+
+			GLint texIDs[] =
+			{
+				 0,  1,  2,  3,  4,  5,  6,  7,  8,  9,
+				10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+				20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+				30, 31, 32
+			};
+
+			m_pShader->setUniform1iv("textures", texIDs, 32);
 			m_pShader->disable();
 		}
 

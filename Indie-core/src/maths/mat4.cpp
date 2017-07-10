@@ -2,7 +2,7 @@
 #include "maths.h"
 
 
-namespace Indie
+namespace indie
 {
 	namespace maths
 	{

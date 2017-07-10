@@ -3,7 +3,7 @@
 #include "../utility/stringUtils.h"
 #include <iostream>
 
-namespace Indie
+namespace indie
 {
 	namespace audio
 	{

@@ -279,6 +279,12 @@
     <ClCompile Include="src\graphics\font.cpp">
       <Filter>源文件\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="examples\game.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="examples\gameMain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ext\freetype\include\ft2build.h">
@@ -398,18 +404,18 @@
     <ClInclude Include="src\graphics\font.h">
       <Filter>头文件\graphics</Filter>
     </ClInclude>
+    <ClInclude Include="src\indie.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="examples\game.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\fragmentShader.shader">
       <Filter>shaders</Filter>
     </None>
-    <None Include="src\shaders\fragmentShader.tutorial">
-      <Filter>shaders</Filter>
-    </None>
     <None Include="src\shaders\vertexShader.shader">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="src\shaders\vertexShader.tutorial">
       <Filter>shaders</Filter>
     </None>
   </ItemGroup>

@@ -1,6 +1,6 @@
 #include "vertexArray.h"
 
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{

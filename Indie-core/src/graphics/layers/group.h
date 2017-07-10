@@ -3,7 +3,7 @@
 #include "../renderable2d.h"
 #include "../renderer2d.h"
 
-namespace Indie
+namespace indie
 {
 	namespace graphics
 	{

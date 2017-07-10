@@ -1,6 +1,6 @@
 #include "stringUtils.h"
 
-namespace Indie
+namespace indie
 {
 	std::vector<std::string> splitString(const std::string& str, char delimeter)
 	{
