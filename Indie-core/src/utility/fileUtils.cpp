@@ -25,7 +25,7 @@ namespace indie
 			return result;
 		}
 
-		BYTE* loadTexture(const char* fileName, GLsizei* width, GLsizei* height)
+		BYTE* loadTexture(const char* fileName, int* width, int* height)
 		{
 			//image format
 			FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
@@ -56,6 +56,10 @@ namespace indie
 			*height = FreeImage_GetHeight(dib);
 
 			unsigned int bitsPerPixel = FreeImage_GetBPP(dib);
+
+#ifdef INDIE_EMSCRIPTEN
+			SwapRedBlue32(dib);
+#endif
 			int size = *width * *height * (bitsPerPixel / 8);
 			BYTE* result = new BYTE[size];
 			memcpy(result, bits, size);

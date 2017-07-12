@@ -40,6 +40,10 @@ namespace indie
 			VertexData* m_pBuffer;
 			GLuint m_indexCnt;
 
+#ifdef INDIE_EMSCRIPTEN
+			VertexData* m_pBufferBase;
+#endif
+
 			std::vector<GLuint> m_textureSlots;
 		public:
 			BatchRenderer2D();

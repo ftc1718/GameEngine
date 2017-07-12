@@ -1,9 +1,15 @@
 #pragma once 
 
-#include <GL/glew.h>
+#ifdef INDIE_EMSCRIPTEN
+	#define GLFW_INCLUDE_ES3
+	#include <FreeImage.h>
+#else
+	#include <GL/glew.h>
+	#include "../audio/soundManager.h"
+#endif
+
 #include <GLFW/glfw3.h>
 #include "fontManager.h"
-#include "../audio/soundManager.h"
 
 namespace indie
 {

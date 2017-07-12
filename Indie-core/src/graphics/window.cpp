@@ -5,12 +5,17 @@ namespace indie
 {
 	namespace graphics
 	{
+
+		void windowResize(GLFWwindow* window, int width, int height);
+		void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+		void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+		void cursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
+
 		//static value must be declare out the .h
 		/*bool Window::m_keys[MAX_KEYS];
 		bool Window::m_mouseButtons[MAX_BUTTONS];
 		double Window::m_x;
 		double Window::m_y;*/
-
 		Window::Window(const char* title, int width, int height)
 			: m_pTitle(title), m_width(width), m_height(height)
 		{
@@ -19,9 +24,17 @@ namespace indie
 				glfwTerminate();
 			}
 
+#ifdef INDIE_EMSCRIPTEN
+			FontManager::add((new Font("SourceSansPro-Light", "res/SourceSansPro-Light.ttf", 32)));
+			FreeImage_Initialise();
+#else
 			//default font
 			FontManager::add((new Font("SourceSansPro-Light", "SourceSansPro-Light.ttf", 32)));
+#endif
+
+#ifndef INDIE_EMSCRIPTEN
 			audio::SoundManager::init();
+#endif
 
 			for (int i = 0; i < MAX_KEYS; ++i)
 			{
@@ -41,7 +54,11 @@ namespace indie
 		Window::~Window()
 		{
 			FontManager::clean();
+
+#ifndef INDIE_EMSCRIPTEN
 			audio::SoundManager::clean();
+#endif
+
 			glfwTerminate();
 		}
 
@@ -69,12 +86,13 @@ namespace indie
 
 			glfwSwapInterval(0);//关闭垂直同步
 
-
+#ifndef INDIE_EMSCRIPTEN
 			if (glewInit() != GLEW_OK)
 			{
 				std::cout << "Could not initialize GLEW!" << std::endl;
 				return false;
 			}
+#endif
 
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -118,7 +136,10 @@ namespace indie
 			glfwPollEvents();
 			glfwSwapBuffers(m_pWindow);
 
+#ifndef INDIE_EMSCRIPTEN
 			audio::SoundManager::update();
+#endif
+
 		}
 
 		bool Window::isKeyPressed(unsigned int keyCode) const

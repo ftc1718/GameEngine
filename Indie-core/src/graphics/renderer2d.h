@@ -23,6 +23,7 @@ namespace indie
 			}
 
 		public:
+			virtual ~Renderer2D() { }
 			void push(const maths::mat4& matrix)
 			{
 				//no override

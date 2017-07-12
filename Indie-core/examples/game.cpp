@@ -17,10 +17,22 @@ Game::~Game()
 void Game::init()
 {
 	m_pWindow = createWindow("Test Game", 960, 540);
+
+#ifdef INDIE_EMSCRIPTEN
+	m_pShader = new Shader("res/shaders/vertexShader-web.shader", "res/shaders/fragmentShader-web.shader");
+#else
 	m_pShader = new Shader("src/shaders/vertexShader.shader", "src/shaders/fragmentShader.shader");
+#endif
+
 	m_pLayer = new Layer(new BatchRenderer2D(), m_pShader, maths::mat4::orthographic(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
 	FontManager::get()->setScale(m_pWindow->getWidth() / 32.0f, m_pWindow->getHeight() / 18.0f);
+
+#ifdef INDIE_EMSCRIPTEN
+	m_pSprite = new Sprite(1.0f, 1.0f, 4, 4, new Texture("res/tb.png"));
+#else
 	m_pSprite = new Sprite(1.0f, 1.0f, 4, 4, new Texture("test2.png"));
+#endif
+
 	m_pLayer->add(m_pSprite);
 
 	m_pLabel = new Label("", -15.5f, 7.5f, 0xffffffff);

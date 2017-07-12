@@ -222,9 +222,6 @@
     <ClCompile Include="src\maths\mat4.cpp">
       <Filter>源文件\maths</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\shaders.cpp">
-      <Filter>源文件\graphics</Filter>
-    </ClCompile>
     <ClCompile Include="src\graphics\texture.cpp">
       <Filter>源文件\graphics</Filter>
     </ClCompile>
@@ -258,9 +255,6 @@
     <ClCompile Include="src\graphics\label.cpp">
       <Filter>源文件\graphics\renderables</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\Sprite.cpp">
-      <Filter>源文件\graphics\renderables</Filter>
-    </ClCompile>
     <ClCompile Include="tileLayer.cpp">
       <Filter>源文件\graphics\layers</Filter>
     </ClCompile>
@@ -284,6 +278,12 @@
     </ClCompile>
     <ClCompile Include="examples\gameMain.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\sprite.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\shader.cpp">
+      <Filter>源文件\graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -327,9 +327,6 @@
       <Filter>头文件\ext\freetype-gl</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\batchRenderer2d.h">
-      <Filter>头文件\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\shaders.h">
       <Filter>头文件\graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\renderer2d.h">
@@ -383,9 +380,6 @@
     <ClInclude Include="src\graphics\renderable2d.h">
       <Filter>头文件\graphics\renderables</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\Sprite.h">
-      <Filter>头文件\graphics\renderables</Filter>
-    </ClInclude>
     <ClInclude Include="tileLayer.h">
       <Filter>头文件\graphics\layers</Filter>
     </ClInclude>
@@ -410,6 +404,12 @@
     <ClInclude Include="examples\game.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\sprite.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\shader.h">
+      <Filter>头文件\graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\fragmentShader.shader">
@@ -418,5 +418,7 @@
     <None Include="src\shaders\vertexShader.shader">
       <Filter>shaders</Filter>
     </None>
+    <None Include="src\shaders\fragmentShader-web.shader" />
+    <None Include="src\shaders\vertexShader-web.shader" />
   </ItemGroup>
 </Project>

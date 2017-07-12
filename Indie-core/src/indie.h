@@ -1,11 +1,28 @@
 #pragma once
 
+#ifdef INDIE_EMSCRIPTEN
+	#include <emscripten/emscripten.h>
+	#include <functional>
+#endif
+
 #include "graphics/window.h"
 #include "graphics/batchRenderer2d.h"
 #include "graphics/layers/layer.h"
 #include "graphics/Sprite.h"
 #include "graphics/label.h"
 #include "utility/timer.h"
+
+#ifdef INDIE_EMSCRIPTEN
+
+static void dispatchMain(void* fp)
+{
+	std::function<void()>* func = (std::function<void()>*)fp;
+	(*func)();
+}
+
+#endif // INDIE_EMSCRIPTEN
+
+
 
 namespace indie
 {
@@ -63,8 +80,12 @@ namespace indie
 			unsigned int frames = 0;
 			unsigned int updates = 0;
 
+#ifdef INDIE_EMSCRIPTEN
+			std::function<void()> mainloop = [&] {
+#else
 			while (!m_pWindow->closed())
 			{
+#endif
 				m_pWindow->clear();
 
 				if (m_pTimer->elapsed() - updatesTimer > updateTick)
@@ -87,7 +108,12 @@ namespace indie
 					updates = 0;
 					tick();
 				}
+#ifdef INDIE_EMSCRIPTEN
+			};
+			emscripten_set_main_loop_arg(dispatchMain, &mainloop, 0, 1);
+#else
 			}
+#endif
 		}
 	};
 }

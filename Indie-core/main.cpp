@@ -5,7 +5,7 @@
 
 #include "src/graphics/window.h"
 #include "src/maths/maths.h"
-#include "src/graphics/shaders.h"
+#include "src/graphics/shader.h"
 
 #include "src/graphics/buffers/buffer.h"
 #include "src/graphics/buffers/indexBuffer.h"

@@ -1,0 +1,47 @@
+#pragma once
+#include <string>
+
+#ifdef INDIE_EMSCRIPTEN
+	#define GLFW_INCLUDE_ES3
+	#include <GLFW/glfw3.h>
+#else
+	#include <GL/glew.h>
+#endif
+
+#include "../maths/vec2.h"
+#include "../maths/vec3.h"
+#include "../maths/vec4.h"
+#include "../maths/mat4.h"
+
+namespace indie
+{
+	namespace graphics
+	{
+		class Shader
+		{
+		private:
+			GLuint m_programID;
+			std::string m_verPath;
+			std::string m_fragPath;
+		public:
+			Shader(const std::string& verPath, const std::string& fragPath);
+			~Shader();
+
+			void setUniform1i(const GLchar* name, int value);
+			void setUniform1iv(const GLchar* name, int* value, int count);
+			void setUniform1f(const GLchar* name, float value);
+			void setUniform1fv(const GLchar* name, float* value, int count);
+			void setUniform2f(const GLchar* name, const maths::vec2& vector);
+			void setUniform3f(const GLchar* name, const maths::vec3& vector);
+			void setUniform4f(const GLchar* name, const maths::vec4& vector);
+			void setUniformMat4(const GLchar* name, const maths::mat4& matrix);
+
+			void enable() const;
+			void disable() const;
+
+		private:
+			GLuint load();
+			GLint getUniformLocation(const GLchar* name);
+		};
+	}
+}

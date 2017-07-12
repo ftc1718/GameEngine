@@ -19,7 +19,7 @@ out DATA
 
 void main()
 {
-	gl_Position = projectionMatrix * viewMatrix * modelMatrix *  position;
+	gl_Position = projectionMatrix * viewMatrix * modelMatrix * position;
 	vs_out.position = modelMatrix * position; // pos = postion 相对坐标（模型坐标系）， pos = modelMatrix * position 绝对坐标（世界坐标系）
 	vs_out.uv = uv;
 	vs_out.tid = tid;
