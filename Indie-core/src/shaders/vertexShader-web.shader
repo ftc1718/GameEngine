@@ -1,7 +1,7 @@
-attribute vec4 position;
-attribute vec2 uv;
-attribute float tid;
-attribute vec4 color;
+attribute highp vec4 position;
+attribute highp vec2 uv;
+attribute highp float tid;
+attribute highp vec4 color;
 
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;

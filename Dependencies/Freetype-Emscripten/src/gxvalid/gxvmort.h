@@ -55,36 +55,36 @@
   gxv_mort_featurearray_validate( FT_Bytes       table,
                                   FT_Bytes       limit,
                                   FT_ULong       nFeatureFlags,
-                                  GXV_Validator  gxvalid );
+                                  GXV_Validator  valid );
 
   FT_LOCAL( void )
   gxv_mort_coverage_validate( FT_UShort      coverage,
-                              GXV_Validator  gxvalid );
+                              GXV_Validator  valid );
 
   FT_LOCAL( void )
   gxv_mort_subtable_type0_validate( FT_Bytes       table,
                                     FT_Bytes       limit,
-                                    GXV_Validator  gxvalid );
+                                    GXV_Validator  valid );
 
   FT_LOCAL( void )
   gxv_mort_subtable_type1_validate( FT_Bytes       table,
                                     FT_Bytes       limit,
-                                    GXV_Validator  gxvalid );
+                                    GXV_Validator  valid );
 
   FT_LOCAL( void )
   gxv_mort_subtable_type2_validate( FT_Bytes       table,
                                     FT_Bytes       limit,
-                                    GXV_Validator  gxvalid );
+                                    GXV_Validator  valid );
 
   FT_LOCAL( void )
   gxv_mort_subtable_type4_validate( FT_Bytes       table,
                                     FT_Bytes       limit,
-                                    GXV_Validator  gxvalid );
+                                    GXV_Validator  valid );
 
   FT_LOCAL( void )
   gxv_mort_subtable_type5_validate( FT_Bytes       table,
                                     FT_Bytes       limit,
-                                    GXV_Validator  gxvalid );
+                                    GXV_Validator  valid );
 
 
 #endif /* __GXVMORT_H__ */

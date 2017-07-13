@@ -11,6 +11,16 @@ namespace indie
 			//构造时设定投影矩阵，不用每一帧重新渲染
 			m_pShader->setUniformMat4("projectionMatrix",m_projectionMatrix);
 
+#ifdef INDIE_EMSCRIPTEN
+			m_pShader->setUniform1i("texture_0", 0);
+			m_pShader->setUniform1i("texture_1", 1);
+			m_pShader->setUniform1i("texture_2", 2);
+			m_pShader->setUniform1i("texture_3", 3);
+			m_pShader->setUniform1i("texture_4", 4);
+			m_pShader->setUniform1i("texture_5", 5);
+			m_pShader->setUniform1i("texture_6", 6);
+			m_pShader->setUniform1i("texture_7", 7);
+#else
 			GLint texIDs[] =
 			{
 				 0,  1,  2,  3,  4,  5,  6,  7,  8,  9,
@@ -20,6 +30,8 @@ namespace indie
 			};
 
 			m_pShader->setUniform1iv("textures", texIDs, 32);
+#endif
+
 			m_pShader->disable();
 		}
 

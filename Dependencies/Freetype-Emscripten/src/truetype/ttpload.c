@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    TrueType-specific tables loader (body).                              */
 /*                                                                         */
-/*  Copyright 1996-2002, 2004-2013 by                                      */
+/*  Copyright 1996-2001, 2002, 2004, 2005, 2006, 2007, 2008, 2009, 2010 by */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -72,7 +72,7 @@
 
     /* it is possible that a font doesn't have a glyf table at all */
     /* or its size is zero                                         */
-    if ( FT_ERR_EQ( error, Table_Missing ) )
+    if ( error == TT_Err_Table_Missing )
       face->glyf_len = 0;
     else if ( error )
       goto Exit;
@@ -81,7 +81,7 @@
     error = face->goto_table( face, TTAG_loca, stream, &table_len );
     if ( error )
     {
-      error = FT_THROW( Locations_Missing );
+      error = TT_Err_Locations_Missing;
       goto Exit;
     }
 
@@ -92,7 +92,7 @@
       if ( table_len >= 0x40000L )
       {
         FT_TRACE2(( "table too large\n" ));
-        error = FT_THROW( Invalid_Table );
+        error = TT_Err_Invalid_Table;
         goto Exit;
       }
       face->num_locations = table_len >> shift;
@@ -104,22 +104,21 @@
       if ( table_len >= 0x20000L )
       {
         FT_TRACE2(( "table too large\n" ));
-        error = FT_THROW( Invalid_Table );
+        error = TT_Err_Invalid_Table;
         goto Exit;
       }
       face->num_locations = table_len >> shift;
     }
 
-    if ( face->num_locations != (FT_ULong)face->root.num_glyphs + 1 )
+    if ( face->num_locations != (FT_ULong)face->root.num_glyphs )
     {
       FT_TRACE2(( "glyph count mismatch!  loca: %d, maxp: %d\n",
-                  face->num_locations - 1, face->root.num_glyphs ));
+                  face->num_locations, face->root.num_glyphs ));
 
       /* we only handle the case where `maxp' gives a larger value */
-      if ( face->num_locations <= (FT_ULong)face->root.num_glyphs )
+      if ( face->num_locations < (FT_ULong)face->root.num_glyphs )
       {
-        FT_Long   new_loca_len =
-                    ( (FT_Long)( face->root.num_glyphs ) + 1 ) << shift;
+        FT_Long   new_loca_len = (FT_Long)face->root.num_glyphs << shift;
 
         TT_Table  entry = face->dir_tables;
         TT_Table  limit = entry + face->num_tables;
@@ -146,7 +145,7 @@
 
         if ( new_loca_len <= dist )
         {
-          face->num_locations = face->root.num_glyphs + 1;
+          face->num_locations = face->root.num_glyphs;
           table_len           = new_loca_len;
 
           FT_TRACE2(( "adjusting num_locations to %d\n",
@@ -211,22 +210,22 @@
     }
 
     /* Check broken location data */
-    if ( pos1 > face->glyf_len )
+    if ( pos1 >= face->glyf_len )
     {
       FT_TRACE1(( "tt_face_get_location:"
-                  " too large offset=0x%08lx found for gid=0x%04lx,"
-                  " exceeding the end of glyf table (0x%08lx)\n",
-                  pos1, gindex, face->glyf_len ));
+                 " too large offset=0x%08lx found for gid=0x%04lx,"
+                 " exceeding the end of glyf table (0x%08lx)\n",
+                 pos1, gindex, face->glyf_len ));
       *asize = 0;
       return 0;
     }
 
-    if ( pos2 > face->glyf_len )
+    if ( pos2 >= face->glyf_len )
     {
       FT_TRACE1(( "tt_face_get_location:"
-                  " too large offset=0x%08lx found for gid=0x%04lx,"
-                  " truncate at the end of glyf table (0x%08lx)\n",
-                  pos2, gindex + 1, face->glyf_len ));
+                 " too large offset=0x%08lx found for gid=0x%04lx,"
+                 " truncate at the end of glyf table (0x%08lx)\n",
+                 pos2, gindex + 1, face->glyf_len ));
       pos2 = face->glyf_len;
     }
 
@@ -296,7 +295,7 @@
 
       face->cvt_size = 0;
       face->cvt      = NULL;
-      error          = FT_Err_Ok;
+      error          = TT_Err_Ok;
 
       goto Exit;
     }
@@ -334,7 +333,7 @@
     FT_UNUSED( face   );
     FT_UNUSED( stream );
 
-    return FT_Err_Ok;
+    return TT_Err_Ok;
 
 #endif
   }
@@ -375,7 +374,7 @@
     {
       face->font_program      = NULL;
       face->font_program_size = 0;
-      error                   = FT_Err_Ok;
+      error                   = TT_Err_Ok;
 
       FT_TRACE2(( "is missing\n" ));
     }
@@ -396,7 +395,7 @@
     FT_UNUSED( face   );
     FT_UNUSED( stream );
 
-    return FT_Err_Ok;
+    return TT_Err_Ok;
 
 #endif
   }
@@ -436,7 +435,7 @@
     {
       face->cvt_program      = NULL;
       face->cvt_program_size = 0;
-      error                  = FT_Err_Ok;
+      error                  = TT_Err_Ok;
 
       FT_TRACE2(( "is missing\n" ));
     }
@@ -457,7 +456,7 @@
     FT_UNUSED( face   );
     FT_UNUSED( stream );
 
-    return FT_Err_Ok;
+    return TT_Err_Ok;
 
 #endif
   }
@@ -495,7 +494,7 @@
     /* this table is optional */
     error = face->goto_table( face, TTAG_hdmx, stream, &table_size );
     if ( error || table_size < 8 )
-      return FT_Err_Ok;
+      return TT_Err_Ok;
 
     if ( FT_FRAME_EXTRACT( table_size, face->hdmx_table ) )
       goto Exit;
@@ -508,9 +507,9 @@
     record_size = FT_NEXT_ULONG( p );
 
     /* The maximum number of bytes in an hdmx device record is the */
-    /* maximum number of glyphs + 2; this is 0xFFFF + 2, thus      */
-    /* explaining why `record_size' is a long (which we read as    */
-    /* unsigned long for convenience).  In practice, two bytes are */
+    /* maximum number of glyphs + 2; this is 0xFFFF + 2; this is   */
+    /* the reason why `record_size' is a long (which we read as    */
+    /* unsigned long for convenience).  In practice, two bytes     */
     /* sufficient to hold the size value.                          */
     /*                                                             */
     /* There are at least two fonts, HANNOM-A and HANNOM-B version */
@@ -522,12 +521,10 @@
       record_size &= 0xFFFFU;
 
     /* The limit for `num_records' is a heuristic value. */
-    if ( version != 0           ||
-         num_records > 255      ||
-         record_size > 0x10001L ||
-         record_size < 4        )
+
+    if ( version != 0 || num_records > 255 || record_size > 0x10001L )
     {
-      error = FT_THROW( Invalid_File_Format );
+      error = TT_Err_Invalid_File_Format;
       goto Fail;
     }
 

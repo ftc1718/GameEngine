@@ -34,7 +34,7 @@
 #include "fttrigon.c"
 #include "ftutil.c"
 
-#ifdef FT_MACINTOSH
+#if defined( FT_MACINTOSH ) && !defined ( DARWIN_NO_CARBON )
 #include "ftmac.c"
 #endif
 
