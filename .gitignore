@@ -18,7 +18,11 @@
 x64/
 x86/
 bld/
-[Bb]in/
+
+#[Bb]in/
+bin/Debug/
+bin/Release/
+
 [Oo]bj/
 [Ll]og/
 
