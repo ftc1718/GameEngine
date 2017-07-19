@@ -7,13 +7,18 @@ namespace indie
 {
 	namespace audio
 	{
+#ifndef INDIE_EMSCRIPTEN
 		static void setFlagAndDestroyOnFinish(ga_Handle* in_handle, void* in_context);
+#endif
 
 		Sound::Sound(const std::string& soundName, const std::string& fileName)
 			: m_soundName(soundName), m_fileName(fileName), m_isPlaying(false)
 		{
+
+#ifndef INDIE_EMSCRIPTEN
 			m_loopSrc = nullptr;
 			m_pLoopSrc = &m_loopSrc;
+#endif
 
 			std::vector<std::string> split = splitString(m_fileName, '.');
 
@@ -23,30 +28,55 @@ namespace indie
 				return;
 			}
 
+#ifndef INDIE_EMSCRIPTEN
+
 			m_sound = gau_load_sound_file(m_fileName.c_str(), split.back().c_str());
 
 			if (m_sound == nullptr)
 			{
 				std::cout << "Could not load sound file!" << std::endl;
 			}
+#endif
+
 		}
 
 		Sound::~Sound()
 		{
+
+#ifndef INDIE_EMSCRIPTEN
 			ga_sound_release(m_sound);
+#endif
+
 		}
+
 
 		void Sound::play(bool loop)
 		{
+#ifdef INDIE_EMSCRIPTEN
+			SoundManagerPlay(m_soundName.c_str());
+#else
 			if (!loop)
 				m_pLoopSrc = nullptr;
 			m_handle = gau_create_handle_sound(SoundManager::m_mixer, m_sound, &setFlagAndDestroyOnFinish, NULL, m_pLoopSrc);
 			ga_handle_play(m_handle);
 			m_isPlaying = true;
+#endif
+		}
+
+		void Sound::loop()
+		{
+#ifdef INDIE_EMSCRIPTEN
+			SoundManagerLoop(m_soundName.c_str());
+#else
+			play(true);
+#endif
 		}
 
 		void Sound::stop()
 		{
+#ifdef INDIE_EMSCRIPTEN
+			SoundManagerStop(m_soundName.c_str());
+#else
 			if (!m_isPlaying)
 			{
 				return;
@@ -54,10 +84,23 @@ namespace indie
 
 			ga_handle_stop(m_handle);
 			m_isPlaying = false;
+#endif
+		}
+
+		void Sound::pause()
+		{
+#ifdef INDIE_EMSCRIPTEN
+			SoundManagerPause(m_soundName.c_str());
+#else
+			stop();
+#endif
 		}
 
 		void Sound::resume()
 		{
+#ifdef INDIE_EMSCRIPTEN
+			SoundManagerPlay(m_soundName.c_str());
+#else
 			if (m_isPlaying)
 			{
 				return;
@@ -65,10 +108,14 @@ namespace indie
 
 			ga_handle_play(m_handle);
 			m_isPlaying = true;
+#endif
 		}
 
-		void Sound::setVolume(gc_float32 volume)
+		void Sound::setVolume(float volume)
 		{
+#ifdef INDIE_EMSCRIPTEN
+			SoundManagerSetVolume(m_soundName.c_str(), volume);
+#else
 			if (!m_isPlaying)
 			{
 				std::cout << "No sound playing now!" << std::endl;
@@ -77,12 +124,15 @@ namespace indie
 
 			m_volume = volume;
 			ga_handle_setParamf(m_handle, GA_HANDLE_PARAM_GAIN, m_volume);
+#endif
 		}
 
+#ifndef INDIE_EMSCRIPTEN
 		void setFlagAndDestroyOnFinish(ga_Handle* in_handle, void* in_context)
 		{
 			ga_handle_destroy(in_handle);
 		}
+#endif
 
 	}
 }

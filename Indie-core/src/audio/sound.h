@@ -1,8 +1,13 @@
 #pragma once
 
 #include <string>
-#include "gorilla/ga.h"
-#include "gorilla/gau.h"
+
+#ifdef INDIE_EMSCRIPTEN
+	#include <emscripten/emscripten.h>
+#else
+	#include "gorilla/ga.h"
+	#include "gorilla/gau.h"
+#endif
 
 namespace indie
 {
@@ -11,28 +16,32 @@ namespace indie
 		class Sound
 		{
 		private:
+
+#ifndef INDIE_EMSCRIPTEN
 			ga_Sound* m_sound;
 			ga_Handle* m_handle;
-			gc_float32 m_volume;
 			gau_SampleSourceLoop* m_loopSrc;
 			gau_SampleSourceLoop** m_pLoopSrc;
+			bool m_isPlaying;
+#endif
+			float m_volume;
 
 			std::string m_soundName;
 			std::string m_fileName;
-
-			bool m_isPlaying;
 		public:
 			Sound(const std::string& soundName, const std::string& fileName);
 			~Sound();
 
 			void play(bool loop = false);
+			void loop();
 			void stop();
+			void pause();
 			void resume();
-			void setVolume(gc_float32 volume);
+			void setVolume(float volume);
 
-			inline const gc_float32 getVolume() const { return m_volume; }
 			inline const std::string getSoundName() const { return m_soundName; }
 			inline const std::string getFileName() const { return m_fileName; }
+			inline const float getVolume() const { return m_volume; }
 		};
 	}
 }

@@ -37,6 +37,14 @@ void Game::init()
 
 	m_pLabel = new Label("", -15.5f, 7.5f, 0xffffffff);
 	m_pLayer->add(m_pLabel);
+
+#ifdef INDIE_EMSCRIPTEN
+	audio::SoundManager::add(new audio::Sound("song", "res/song.ogg"));
+#else
+	audio::SoundManager::add(new audio::Sound("song", "song.wav"));
+	audio::SoundManager::get("song")->play();
+#endif
+
 }
 
 void Game::tick()

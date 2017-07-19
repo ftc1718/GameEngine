@@ -10,6 +10,10 @@
 #include "graphics/layers/layer.h"
 #include "graphics/Sprite.h"
 #include "graphics/label.h"
+
+#include "audio/sound.h"
+#include "audio/soundManager.h"
+
 #include "utility/timer.h"
 
 #ifdef INDIE_EMSCRIPTEN
