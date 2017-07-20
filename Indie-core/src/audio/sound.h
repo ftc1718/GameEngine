@@ -22,9 +22,9 @@ namespace indie
 			ga_Handle* m_handle;
 			gau_SampleSourceLoop* m_loopSrc;
 			gau_SampleSourceLoop** m_pLoopSrc;
-			bool m_isPlaying;
 #endif
 			float m_volume;
+			bool m_isPlaying;
 
 			std::string m_soundName;
 			std::string m_fileName;

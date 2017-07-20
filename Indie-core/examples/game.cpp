@@ -39,10 +39,9 @@ void Game::init()
 	m_pLayer->add(m_pLabel);
 
 #ifdef INDIE_EMSCRIPTEN
-	audio::SoundManager::add(new audio::Sound("song", "res/song.ogg"));
+	audio::SoundManager::add(new audio::Sound("song", "song.ogg"))->play();
 #else
-	audio::SoundManager::add(new audio::Sound("song", "song.wav"));
-	audio::SoundManager::get("song")->play();
+	audio::SoundManager::add(new audio::Sound("song", "song.wav"))->play();
 #endif
 
 }

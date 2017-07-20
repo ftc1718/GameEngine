@@ -31,10 +31,7 @@ namespace indie
 			//default font
 			FontManager::add((new Font("SourceSansPro-Light", "SourceSansPro-Light.ttf", 32)));
 #endif
-
-#ifndef INDIE_EMSCRIPTEN
 			audio::SoundManager::init();
-#endif
 
 			for (int i = 0; i < MAX_KEYS; ++i)
 			{

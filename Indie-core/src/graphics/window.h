@@ -5,11 +5,11 @@
 	#include <FreeImage.h>
 #else
 	#include <GL/glew.h>
-	#include "../audio/soundManager.h"
 #endif
 
 #include <GLFW/glfw3.h>
 #include "fontManager.h"
+#include "../audio/soundManager.h"
 
 namespace indie
 {
