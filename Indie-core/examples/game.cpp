@@ -28,9 +28,9 @@ void Game::init()
 	FontManager::get()->setScale(m_pWindow->getWidth() / 32.0f, m_pWindow->getHeight() / 18.0f);
 
 #ifdef INDIE_EMSCRIPTEN
-	m_pSprite = new Sprite(1.0f, 1.0f, 4, 4, new Texture("res/tb.png"));
+	m_pSprite = new Sprite(1.0f, 1.0f, 4, 4, new Texture("tex", "res/RGBTest32bit.png"));
 #else
-	m_pSprite = new Sprite(1.0f, 1.0f, 4, 4, new Texture("test2.png"));
+	m_pSprite = new Sprite(1.0f, 1.0f, 4, 4, new Texture("tex", "RGBTest24bit.png"));
 #endif
 
 	m_pLayer->add(m_pSprite);
@@ -81,9 +81,8 @@ void Game::update()
 		m_pSprite->setPosition(position);
 	}
 
-	double x, y;
-	m_pWindow->getMousePosition(x, y);
-	m_pShader->setUniform2f("lightPosition", maths::vec2((float)(x * 32.0f / m_pWindow->getWidth() - 16.0f), (float)(9.0f - y * 18.0f / m_pWindow->getHeight())));
+	maths::vec2 mousePositione = m_pWindow->getMousePosition();
+	m_pShader->setUniform2f("lightPosition", maths::vec2((float)(mousePositione.x * 32.0f / m_pWindow->getWidth() - 16.0f), (float)(9.0f - mousePositione.y * 18.0f / m_pWindow->getHeight())));
 }
 
 void Game::render()

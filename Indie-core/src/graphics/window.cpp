@@ -51,10 +51,8 @@ namespace indie
 		Window::~Window()
 		{
 			FontManager::clean();
-
-#ifndef INDIE_EMSCRIPTEN
+			TextureManager::clean();
 			audio::SoundManager::clean();
-#endif
 
 			glfwTerminate();
 		}
@@ -179,10 +177,9 @@ namespace indie
 			return m_mouseClicked[mouseButton];
 		}
 
-		void Window::getMousePosition(double& x, double& y) const
+		const maths::vec2& Window::getMousePosition() const
 		{
-			x = m_x;
-			y = m_y;
+			return m_mousePosition;
 		}
 
 		void windowResize(GLFWwindow* window, int width, int height)
@@ -208,8 +205,8 @@ namespace indie
 		void cursorPositionCallback(GLFWwindow* window, double xpos, double ypos)
 		{
 			Window* win = (Window*)glfwGetWindowUserPointer(window);
-			win->m_x = xpos;
-			win->m_y = ypos;
+			win->m_mousePosition.x = (float)xpos;
+			win->m_mousePosition.y = (float)ypos;
 		}
 	}
 }

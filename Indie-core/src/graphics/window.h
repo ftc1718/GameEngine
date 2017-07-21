@@ -8,7 +8,9 @@
 #endif
 
 #include <GLFW/glfw3.h>
+#include "../maths/vec2.h"
 #include "fontManager.h"
+#include "textureManager.h"
 #include "../audio/soundManager.h"
 
 namespace indie
@@ -33,7 +35,8 @@ namespace indie
 			bool m_mouseButtons[MAX_BUTTONS];
 			bool m_mouseState[MAX_BUTTONS];
 			bool m_mouseClicked[MAX_BUTTONS];
-			double m_x, m_y;
+
+			maths::vec2 m_mousePosition;
 
 		public:
 			Window(const char* title, int width, int height);
@@ -50,7 +53,7 @@ namespace indie
 			bool isKeyTyped(unsigned int keyCode) const;
 			bool isMouseButtonPressed(unsigned int mouseButton) const;
 			bool isMouseButtonClicked(unsigned int mouseButton) const;
-			void getMousePosition(double& x, double& y) const;
+			const maths::vec2& getMousePosition() const;
 		private:
 			bool init();
 			friend void windowResize(GLFWwindow* window, int width, int height);

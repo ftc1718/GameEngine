@@ -285,6 +285,9 @@
     <ClCompile Include="src\graphics\shader.cpp">
       <Filter>源文件\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\textureManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ext\freetype\include\ft2build.h">
@@ -409,6 +412,9 @@
     </ClInclude>
     <ClInclude Include="src\graphics\shader.h">
       <Filter>头文件\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\textureManager.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,18 +1,19 @@
 #include "texture.h"
+#include <iostream>
 
 namespace indie
 {
 	namespace graphics
 	{
-		Texture::Texture(const std::string& fileName)
-			: m_fileName(fileName)
+		Texture::Texture(const std::string& name, const std::string& fileName)
+			: m_name(name), m_fileName(fileName)
 		{
 			m_tID = load();
 		}
 
 		Texture::~Texture()
 		{
-
+			glDeleteTextures(1, &m_tID);
 		}
 
 		void Texture::bind() const
@@ -27,7 +28,7 @@ namespace indie
 
 		GLuint Texture::load()
 		{
-			BYTE* pixels = utils::loadTexture(m_fileName.c_str(), &m_width, &m_height);
+			BYTE* pixels = utils::loadTexture(m_fileName.c_str(), &m_width, &m_height, &m_bitsPerPixel);
 
 			GLuint result;
 			glGenTextures(1, &result);
@@ -36,11 +37,19 @@ namespace indie
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
+			if (m_bitsPerPixel != 24 && m_bitsPerPixel != 32)
+			{
+				std::cout << "[Texture] Unsupport image bit-depth!" << std::endl;
+			}
+
+			GLint internalFormat = m_bitsPerPixel == 32 ? GL_RGBA : GL_RGB;
+			GLenum format = m_bitsPerPixel == 32 ?
 #ifdef INDIE_EMSCRIPTEN
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_width, m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, pixels);
+			GL_RGBA : GL_RGB;
 #else
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_width, m_height, 0, GL_BGR, GL_UNSIGNED_BYTE, pixels);
+			GL_BGRA: GL_BGR;
 #endif
+			glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_width, m_height, 0, format, GL_UNSIGNED_BYTE, pixels);
 			glBindTexture(GL_TEXTURE_2D, 0);
 
 			delete[] pixels; //free memory in loadTexture

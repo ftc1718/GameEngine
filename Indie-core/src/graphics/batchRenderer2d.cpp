@@ -5,6 +5,7 @@ namespace indie
 	namespace graphics
 	{
 		BatchRenderer2D::BatchRenderer2D()
+			: m_indexCnt(0)
 		{
 			init();
 		}
