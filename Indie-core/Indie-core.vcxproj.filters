@@ -416,6 +416,9 @@
     <ClInclude Include="src\graphics\textureManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\utility\log.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\fragmentShader.shader">

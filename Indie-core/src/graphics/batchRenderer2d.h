@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include "../utility/log.h"
 #include "renderer2d.h"
 #include "renderable2d.h"
 

@@ -304,6 +304,7 @@
     <ClInclude Include="src\graphics\sprite.h" />
     <ClInclude Include="src\graphics\textureManager.h" />
     <ClInclude Include="src\indie.h" />
+    <ClInclude Include="src\utility\log.h" />
     <ClInclude Include="tileLayer.h" />
     <ClInclude Include="src\graphics\renderable2d.h" />
     <ClInclude Include="src\graphics\renderer2d.h" />

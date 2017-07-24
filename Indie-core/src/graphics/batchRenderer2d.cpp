@@ -8,6 +8,7 @@ namespace indie
 			: m_indexCnt(0)
 		{
 			init();
+			INDIE_INFO("test");
 		}
 
 		BatchRenderer2D::~BatchRenderer2D()
@@ -15,10 +16,11 @@ namespace indie
 			delete m_pIndexBufferObj;
 
 #ifdef INDIE_EMSCRIPTEN
-			delete m_pBufferBase;
+			delete[] m_pBufferBase;
 #endif
 
 			glDeleteBuffers(1, &m_vertexBufferObj);
+			glDeleteVertexArrays(1, &m_vertexArrayObj);
 		}
 
 		void BatchRenderer2D::init()
