@@ -1,4 +1,5 @@
 #include "texture.h"
+#include "../utility/log.h"
 #include <iostream>
 
 namespace indie
@@ -39,8 +40,10 @@ namespace indie
 
 			if (m_bitsPerPixel != 24 && m_bitsPerPixel != 32)
 			{
-				std::cout << "[Texture] Unsupport image bit-depth!" << std::endl;
+				INDIE_ERROR("[Texture] Unsupport image bit-depth! (%d)", m_bitsPerPixel);
 			}
+
+//			INDIE_ASSERT(m_bitsPerPixel > 32, "assert test"); //assert test
 
 			GLint internalFormat = m_bitsPerPixel == 32 ? GL_RGBA : GL_RGB;
 			GLenum format = m_bitsPerPixel == 32 ?

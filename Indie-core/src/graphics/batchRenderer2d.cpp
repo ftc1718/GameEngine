@@ -8,7 +8,6 @@ namespace indie
 			: m_indexCnt(0)
 		{
 			init();
-			INDIE_INFO("test");
 		}
 
 		BatchRenderer2D::~BatchRenderer2D()
