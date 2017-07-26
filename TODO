@@ -1,2 +1,4 @@
-# use emscripten to compile soure code into JS(make the game run on web).
-# rewrite sound part with JS(grilla audio can only use on desktop).
+# use emscripten to compile soure code into JS(make the game run on web).//done
+# rewrite sound part with JS(grilla audio can only use on desktop).//done
+# to make a better logging system.
+# embeded the default font, sound, and some other assets to engine.
