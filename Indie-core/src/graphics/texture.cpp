@@ -43,8 +43,6 @@ namespace indie
 				INDIE_ERROR("[Texture] Unsupport image bit-depth! (%d)", m_bitsPerPixel);
 			}
 
-//			INDIE_ASSERT(m_bitsPerPixel > 32, "assert test"); //assert test
-
 			GLint internalFormat = m_bitsPerPixel == 32 ? GL_RGBA : GL_RGB;
 			GLenum format = m_bitsPerPixel == 32 ?
 #ifdef INDIE_EMSCRIPTEN

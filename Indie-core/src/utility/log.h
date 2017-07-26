@@ -2,6 +2,9 @@
 
 #include <stdio.h>
 
+//TODO:
+// write a better log system!
+
 #define INDIE_ASSERT(fmt, mess) \
 do \
 { \

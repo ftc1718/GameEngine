@@ -28,8 +28,8 @@ namespace indie
 			FontManager::add((new Font("SourceSansPro-Light", "res/SourceSansPro-Light.ttf", 32)));
 			FreeImage_Initialise();
 #else
-			//default font
-			FontManager::add((new Font("SourceSansPro-Light", "SourceSansPro-Light.ttf", 32)));
+			//default font should be embeded into the engine
+			FontManager::add((new Font("SourceSansPro-Light", "res/SourceSansPro-Light.ttf", 32)));
 #endif
 			audio::SoundManager::init();
 

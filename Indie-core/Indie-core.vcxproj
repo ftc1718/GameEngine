@@ -35,20 +35,20 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Emscripten|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -206,8 +206,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="examples\game.cpp" />
-    <ClCompile Include="examples\gameMain.cpp" />
     <ClCompile Include="ext\freetype-gl\platform.c" />
     <ClCompile Include="ext\freetype-gl\texture-atlas.c" />
     <ClCompile Include="ext\freetype-gl\texture-font.c" />
@@ -251,7 +249,6 @@
     <ClCompile Include="ext\freetype\src\type1\type1.c" />
     <ClCompile Include="ext\freetype\src\type42\type42.c" />
     <ClCompile Include="ext\freetype\src\winfonts\winfnt.c" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="src\audio\sound.cpp" />
     <ClCompile Include="src\audio\soundManager.cpp" />
     <ClCompile Include="src\graphics\batchRenderer2d.cpp" />
@@ -265,7 +262,6 @@
     <ClCompile Include="src\graphics\layers\layer.cpp" />
     <ClCompile Include="src\graphics\sprite.cpp" />
     <ClCompile Include="src\graphics\textureManager.cpp" />
-    <ClCompile Include="tileLayer.cpp" />
     <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\graphics\texture.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
@@ -277,7 +273,6 @@
     <ClCompile Include="src\utility\stringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="examples\game.h" />
     <ClInclude Include="ext\freetype-gl\freetype-gl.h" />
     <ClInclude Include="ext\freetype-gl\opengl.h" />
     <ClInclude Include="ext\freetype-gl\platform.h" />
@@ -305,7 +300,6 @@
     <ClInclude Include="src\graphics\textureManager.h" />
     <ClInclude Include="src\indie.h" />
     <ClInclude Include="src\utility\log.h" />
-    <ClInclude Include="tileLayer.h" />
     <ClInclude Include="src\graphics\renderable2d.h" />
     <ClInclude Include="src\graphics\renderer2d.h" />
     <ClInclude Include="src\graphics\shader.h" />
@@ -320,12 +314,6 @@
     <ClInclude Include="src\utility\fileUtils.h" />
     <ClInclude Include="src\utility\stringUtils.h" />
     <ClInclude Include="src\utility\timer.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\shaders\fragmentShader.shader" />
-    <None Include="src\shaders\vertexShader.shader" />
-    <None Include="src\shaders\fragmentShader-web.shader" />
-    <None Include="src\shaders\vertexShader-web.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

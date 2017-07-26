@@ -1,4 +1,5 @@
 #include "fileUtils.h"
+#include "log.h"
 
 namespace indie
 {
@@ -9,6 +10,8 @@ namespace indie
 		{
 			FILE* file;
 			file = fopen(fileName.c_str(), "rb");
+
+			INDIE_ASSERT(file, "Could not open the file!");
 
 			fseek(file, 0, SEEK_END);
 			unsigned long length = ftell(file);
@@ -45,8 +48,10 @@ namespace indie
 			if (FreeImage_FIFSupportsReading(fif))
 				dib = FreeImage_Load(fif, fileName);
 			//if the image failed to load, return failure
-			if (!dib)
-				return nullptr;
+			/*if (!dib)
+				return nullptr;*/
+
+			INDIE_ASSERT(dib, "Faild to load image(texture)!");
 
 			BYTE* bits = nullptr;
 			//retrieve the image data

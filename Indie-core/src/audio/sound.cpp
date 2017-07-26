@@ -1,6 +1,7 @@
 #include "sound.h"
 #include "soundManager.h"
 #include "../utility/stringUtils.h"
+#include "../utility/log.h"
 #include <iostream>
 
 namespace indie
@@ -32,10 +33,8 @@ namespace indie
 
 			m_sound = gau_load_sound_file(m_fileName.c_str(), split.back().c_str());
 
-			if (m_sound == nullptr)
-			{
-				std::cout << "Could not load sound file!" << std::endl;
-			}
+			INDIE_ASSERT(m_sound, "Cound not load sound file!");
+
 #endif
 
 		}

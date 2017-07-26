@@ -1,4 +1,5 @@
 #include "font.h"
+#include "../utility/log.h"
 
 namespace indie
 {
@@ -9,6 +10,8 @@ namespace indie
 		{
 			m_pFTAtlas = ftgl::texture_atlas_new(512, 512, 2);
 			m_pFTFont = ftgl::texture_font_new_from_file(m_pFTAtlas, size, fileName.c_str());
+
+			INDIE_ASSERT(m_pFTFont, "Can not to load font!");
 		}
 
 		Font::~Font()
